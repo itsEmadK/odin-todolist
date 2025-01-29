@@ -54,6 +54,17 @@ class Task {
         return false;
     }
 
+    clone() {
+        const clone = new Task(
+            this.title,
+            this.desc,
+            this.dueDate,
+            this.priority,
+            this.notes
+        );
+        clone.finished = this.finished;
+        return clone;
+    }
 }
 
 export {
