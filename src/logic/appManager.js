@@ -1,4 +1,5 @@
 import { Task } from "./task.js";
+import { Project } from "./project.js";
 
 const appManager = (function () {
 
@@ -46,9 +47,21 @@ const appManager = (function () {
         return projects[projectIndex].length;
     }
 
+    function generateNextProjectID() {
+        return projects.length;
+    }
+
+    function createProject(projectTitle, projectDesc, tasks = []) {
+        const nextProjectID = generateNextProjectID();
+        const project = new Project(nextProjectID, projectTitle, projectDesc);
+        project.tasks = tasks.slice();
+        projects.push(project);
+    }
+
     return {
         findProjectByID,
         createTaskInProject,
+        createProject,
     };
 })();
 
