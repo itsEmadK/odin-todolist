@@ -24,6 +24,19 @@ const appManager = (function () {
         }
     }
 
+    function findTaskByID(projectID, taskID) {
+        const project = findProjectByID(projectID);
+        let task = null;
+        for (let i = 0; i < project.tasks.length; i++) {
+            const currentTask = project.tasks[i];
+            if (currentTask.id === taskID) {
+                task = currentTask;
+                break;
+            }
+        }
+        return task.clone();
+    }
+
     function createTaskInProject(projectID, taskTitle, taskDesc, taskDueDate, taskPriority) {
         const newTaskID = generateNextTaskIDForProject(projectID);
         const task = new Task(
@@ -60,6 +73,7 @@ const appManager = (function () {
 
     return {
         findProjectByID,
+        findTaskByID,
         createTaskInProject,
         createProject,
     };
