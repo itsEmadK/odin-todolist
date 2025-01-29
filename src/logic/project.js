@@ -51,6 +51,16 @@ class Project {
         }
     }
 
+    removeTask(taskID) {
+        const taskIndex = this.#findTaskIndexByID(taskID);
+        if (taskIndex > -1) {
+            this.tasks.splice(taskIndex, 1);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
 
 export {
