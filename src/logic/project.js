@@ -18,7 +18,7 @@ class Project {
         }
         return null;
     }
-    
+
     containsTask(taskID) {
         if (this.findTaskByID(taskID) === null) {
             return false;
@@ -26,7 +26,7 @@ class Project {
         return true;
     }
 
-    
+
     addTask(task) {
         this.tasks.push(task.clone());
     }
@@ -37,6 +37,26 @@ class Project {
 
     getAllTasks() {
         return this.tasks.slice().map((task => task.clone()));
+    }
+
+    #findTaskIndexByID(taskID) {
+        for (let i = 0; i < this.tasks.length; i++) {
+            const task = this.tasks[i];
+            if (task.id === taskID) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    editTask(taskID, task) {
+        const taskIndex = this.#findTaskIndexByID(taskID);
+        if (taskIndex > -1) {
+            tasks[taskIndex] = task.clone();
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
