@@ -46,6 +46,13 @@ class Task {
         }
     }
 
+    isOverDue() {
+        const now = new Date(Date.now());
+        if (this.dueDate < now) {
+            return true;
+        }
+        return false;
+    }
 
 }
 
