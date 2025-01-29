@@ -77,12 +77,20 @@ const appManager = (function () {
     }
 
 
+    function removeTaskFromProject(projectID, taskID) {
+        const projectIndex = findProjectIndexByID(projectID);
+        const project = projects[projectIndex];
+        project.removeTask(taskID);
+        project[projectIndex] = project;
+    }
+
     return {
         findProjectByID,
         findTaskByID,
         createTaskInProject,
         createProject,
         removeProject,
+        removeTaskFromProject,
     };
 })();
 
