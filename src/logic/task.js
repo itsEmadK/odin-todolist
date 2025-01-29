@@ -4,7 +4,6 @@ class Task {
     desc;
     dueDate;
     priority;
-    notes;
     finished = false;
 
     constructor(
@@ -13,14 +12,12 @@ class Task {
         desc = "",
         dueDate = null,
         priority = 0,
-        notes = "",
     ) {
         this.id = id;
         this.title = title;
         this.desc = desc;
         this.dueDate = dueDate;
         this.priority = priority;
-        this.notes = notes;
     }
 
     static NO_PRIORITY = 0;
