@@ -23,6 +23,30 @@ class Task {
         this.notes = notes;
     }
 
+    static NO_PRIORITY = 0;
+    static PRIORITY_LOW = 1;
+    static PRIORITY_MEDIUM = 2;
+    static PRIORITY_HIGH = 3;
+    static PRIORITY_URGENT = 4;
+
+    static getPriorityText(priority) {
+        switch (priority) {
+            case this.NO_PRIORITY:
+                return "No priority";
+            case this.PRIORITY_LOW:
+                return "Low";
+            case this.PRIORITY_MEDIUM:
+                return "Medium";
+            case this.PRIORITY_HIGH:
+                return "High";
+            case this.PRIORITY_URGENT:
+                return "Urgent";
+            default:
+                return null;
+        }
+    }
+
+
 }
 
 export {
