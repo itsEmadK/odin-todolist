@@ -1,3 +1,5 @@
+import { Task } from "../logic/task.js";
+
 function createTaskDetailsComponent(task) {
     const taskDetailsDiv = document.createElement("div");
     taskDetailsDiv.classList.add("task-details-default");
