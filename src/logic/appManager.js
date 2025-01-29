@@ -17,7 +17,7 @@ const appManager = (function () {
     function findProjectByID(projectID) {
         const projectIndex = findProjectIndexByID(projectID);
         if (projectIndex > -1) {
-            return projects[projectIndex];
+            return projects[projectIndex].clone();
         } else {
             return null;
         }
