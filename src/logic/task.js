@@ -56,6 +56,7 @@ class Task {
 
     clone() {
         const clone = new Task(
+            this.id,
             this.title,
             this.desc,
             this.dueDate,
