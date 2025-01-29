@@ -12,8 +12,17 @@ const appManager = (function () {
         return -1;
     }
 
-    return {
+    function findProjectByID(projectID) {
+        const projectIndex = findProjectIndexByID(projectID);
+        if (projectIndex > -1) {
+            return projects[projectIndex];
+        } else {
+            return null;
+        }
+    }
 
+    return {
+        findProjectByID,
     };
 })();
 
