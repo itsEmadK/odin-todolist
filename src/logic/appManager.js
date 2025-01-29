@@ -68,12 +68,16 @@ const appManager = (function () {
         projects.splice(projectIndex, 1);
     }
 
-
     function removeTaskFromProject(projectID, taskID) {
         const projectIndex = findProjectIndexByID(projectID);
         const project = projects[projectIndex];
         project.removeTask(taskID);
         project[projectIndex] = project;
+    }
+
+
+    function getAllProjects() {
+        return projects.slice().map(project => project.clone());
     }
 
     return {
@@ -83,6 +87,7 @@ const appManager = (function () {
         createProject,
         removeProject,
         removeTaskFromProject,
+        getAllProjects,
     };
 })();
 
