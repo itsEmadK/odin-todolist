@@ -12,6 +12,11 @@ class Project {
 
     findTaskByID(taskID) {
         const taskIndex = this.#findTaskIndexByID(taskID);
+        if (taskIndex > -1) {
+            return this.tasks[taskIndex];
+        } else {
+            return null;
+        }
     }
 
     containsTask(taskID) {
