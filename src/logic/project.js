@@ -13,7 +13,7 @@ class Project {
     findTaskByID(taskID) {
         const taskIndex = this.#findTaskIndexByID(taskID);
         if (taskIndex > -1) {
-            return this.tasks[taskIndex];
+            return this.tasks[taskIndex].clone();
         } else {
             return null;
         }
