@@ -10,6 +10,14 @@ class Project {
         this.desc = desc;
     }
 
+    findTaskByID(taskID) {
+        for (let i = 0; i < this.tasks.length; i++) {
+            if (task.id === taskID) {
+                return task;
+            };
+        }
+        return null;
+    }
 }
 
 export {
