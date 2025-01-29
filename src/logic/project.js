@@ -11,12 +11,7 @@ class Project {
     }
 
     findTaskByID(taskID) {
-        for (let i = 0; i < this.tasks.length; i++) {
-            if (task.id === taskID) {
-                return task;
-            };
-        }
-        return null;
+        const taskIndex = this.#findTaskIndexByID(taskID);
     }
 
     containsTask(taskID) {
