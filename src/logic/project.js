@@ -18,6 +18,15 @@ class Project {
         }
         return null;
     }
+    
+    containsTask(taskID) {
+        if (this.findTaskByID(taskID) === null) {
+            return false;
+        }
+        return true;
+    }
+
+    
 }
 
 export {
