@@ -71,11 +71,18 @@ const appManager = (function () {
         projects.push(project);
     }
 
+    function removeProject(projectID) {
+        const projectIndex = findProjectIndexByID(projectID);
+        projects.splice(projectIndex, 1);
+    }
+
+
     return {
         findProjectByID,
         findTaskByID,
         createTaskInProject,
         createProject,
+        removeProject,
     };
 })();
 
