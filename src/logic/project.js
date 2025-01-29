@@ -20,10 +20,7 @@ class Project {
     }
 
     containsTask(taskID) {
-        if (this.findTaskByID(taskID) === null) {
-            return false;
-        }
-        return true;
+        return this.#findTaskIndexByID(taskID) > -1;
     }
 
 
