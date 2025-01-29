@@ -27,6 +27,18 @@ class Project {
     }
 
     
+    addTask(task) {
+        this.tasks.push(task.clone());
+    }
+
+    getTask(taskID) {
+        return this.findTaskByID(taskID);
+    }
+
+    getAllTasks() {
+        return this.tasks.slice().map((task => task.clone()));
+    }
+
 }
 
 export {
