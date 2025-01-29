@@ -61,6 +61,16 @@ class Project {
         }
     }
 
+    clone() {
+        const clone = new Project(
+            this.id,
+            this.title,
+            this.desc
+        );
+
+        clone.tasks = this.tasks.slice().map((task => task.clone()));
+        return clone;
+    }
 }
 
 export {
