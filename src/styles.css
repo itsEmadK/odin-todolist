@@ -79,3 +79,23 @@ nav ul li {
 nav ul li:hover {
     background-color: var(--nav-item-bg-color-hover);
 }
+
+button.add-project {
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+    width: 100%;
+    padding: 0.5em 0.2em;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    cursor: pointer;
+}
+
+.plus-icon {
+    width: 20px;
+}
+
+button.add-project:hover {
+    background-color: var(--nav-item-bg-color-hover);
+}
