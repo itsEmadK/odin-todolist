@@ -20,6 +20,10 @@ module.exports = {
                 use: ["style-loader", "css-loader"],
             },
             {
+                test: /\.html$/i,
+                use: ["html-loader"],
+            },
+            {
                 test: /\.(jpg|png|jpeg|svg|gif|webm|ttf|otf|woff|woff2)$/i,
                 type: "asset/resource",
                 generator: {
@@ -27,6 +31,7 @@ module.exports = {
                     filename: '[path][name][ext]'
                 },
             },
+
         ],
     },
 
