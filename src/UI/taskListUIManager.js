@@ -18,7 +18,8 @@ const taskListUIManager = (function () {
         taskItems.forEach(item => {
             const taskItemComponent = item.taskLIComponent;
             taskListEl.appendChild(taskItemComponent);
-            taskItemComponent.addEventListener("click", e => {
+            const taskDetailsButton = taskItemComponent.querySelector("button.task-details");
+            taskDetailsButton.addEventListener("click", e => {
                 item.isOpen = !item.isOpen;
             });
         });
