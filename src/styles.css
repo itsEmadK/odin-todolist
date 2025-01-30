@@ -8,6 +8,7 @@
     --header-bg-color: rgb(182, 105, 118);
     --sidebar-bg-color: rgb(236, 236, 236);
     --nav-item-bg-color-hover: rgb(223, 223, 223);
+    --nav-item-bg-color-active: rgb(214, 214, 214);
 }
 
 body {
@@ -98,4 +99,9 @@ button.add-project {
 
 button.add-project:hover {
     background-color: var(--nav-item-bg-color-hover);
+}
+
+button.add-project:active,
+nav ul li:active {
+    background-color: var(--nav-item-bg-color-active);
 }
