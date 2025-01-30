@@ -5,6 +5,7 @@ function createTaskEditDetailsComponent(task) {
     taskEditDetailsDiv.classList.add("task-details-edit");
 
     const taskForm = document.createElement("form");
+    taskForm.id = "task-form-" + task.id;
 
     const titleContainer = document.createElement("label");
     titleContainer.classList.add("title-container");
