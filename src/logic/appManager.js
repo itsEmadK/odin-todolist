@@ -80,6 +80,15 @@ const appManager = (function () {
         return projects.slice().map(project => project.clone());
     }
 
+    function getAllTasks() {
+        const tasks = [];
+        getAllProjects().forEach((project => {
+            project.getAllTasks().forEach((task => {
+                tasks.push(task);
+            }));
+        }));
+    }
+
     return {
         findProjectByID,
         findTaskByID,
@@ -88,6 +97,7 @@ const appManager = (function () {
         removeProject,
         removeTaskFromProject,
         getAllProjects,
+        getAllTasks,
     };
 })();
 
