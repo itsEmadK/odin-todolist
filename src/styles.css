@@ -24,8 +24,12 @@ body {
 header {
     background-color: var(--header-bg-color);
     color: white;
-    padding: 0.5em 1em;
+    padding: 1em;
     grid-area: header;
+}
+
+h1 {
+    font-size: 2.5rem;
 }
 
 div.sidebar {
