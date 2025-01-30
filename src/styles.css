@@ -57,3 +57,7 @@ nav {
     display: grid;
     gap: 1em;
 }
+
+li {
+    list-style-type: none;
+}
