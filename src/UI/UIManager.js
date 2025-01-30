@@ -1,7 +1,7 @@
 import { createTaskSummaryComponent } from "./taskSummaryComponent.js";
 
 const UIManager = (function () {
-    const taskItems = [];
+    let taskItems = [];
 
     function displayTasks(tasks) {
         taskItems = [];
@@ -35,3 +35,7 @@ const UIManager = (function () {
     }
 
 })();
+
+export {
+    UIManager
+}
