@@ -10,6 +10,18 @@ const taskListUIManager = (function () {
     //     isEditing,
     // }
 
+    function displayTasks(tasks) {
+        updateTaskItemsArray(tasks);
+        const taskListEl = document.querySelector(".task-list");
+        taskListEl.innerHTML = "";
+        taskItems.forEach(item => {
+            const taskItemComponent = item.taskLIComponent;
+            const task = item.task;
+            const isOpen = item.isOpen;
+            const isEditing = item.isEditing;
+            taskListEl.appendChild(taskItemComponent);
+        });
+    }
 
     function updateTaskItemsArray(tasks) {
         const newTaskItems = [];
