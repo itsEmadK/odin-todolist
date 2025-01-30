@@ -2,71 +2,51 @@ import { createTaskSummaryComponent } from "./taskSummaryComponent.js";
 import { createTaskDetailsComponent } from "./taskDetailsComponent.js";
 
 const taskListUIManager = (function () {
-    let taskItems = [];
+    let taskIDs = [];
     let onTaskUpdated = null;
     let onTaskRemoved = null;
-    // taskItem : {
-    //     taskLIComponent,
-    //     task,
-    //     isOpen,
-    //     isEditing,
-    // }
+
 
     function displayTasks(tasks) {
-        updateTaskItemsArray(tasks);
+        // console.log("--------------------------");
+        // console.log(`BEFORE ${taskIDs}`);
         const taskListEl = document.querySelector(".task-list");
-        taskListEl.innerHTML = "";
-        taskItems.forEach(item => {
-            const taskItemComponent = item.taskLIComponent;
-            taskListEl.appendChild(taskItemComponent);
-            const taskDetailsButton = taskItemComponent.querySelector("button.task-details");
-            taskDetailsButton.addEventListener("click", e => {
-                item.isOpen = !item.isOpen;
-            });
-        });
-    }
 
-    function updateTaskItemsArray(tasks) {
-        const newTaskItems = [];
-        const oldTasks = taskItems.map(item => item.task);
-        const oldTaskIDs = oldTasks.map(task => task.id);
-        //Update taskItems based on changes(edition, removal, addition):
-        for (let i = 0; i < tasks.length; i++) {
-            const task = tasks[i];
-            if (oldTaskIDs.includes(task.id)) {
-                const oldTask = oldTasks.find(old => old.id === task.id);
-                if (task.equals(oldTask)) { //task has not been changed since last render.
-                    const oldTaskItem = taskItems.find(taskItem => taskItem.task.id === task.id);
-                    newTaskItems.push(oldTaskItem);
-                } else { //task info has been changed(so definitely its not in edit mode).
-                    const oldTaskItem = taskItems.find(taskItem => taskItem.task.id === task.id);
-                    console.log("===>", task);
-
-                    const taskLiComp = createTaskListItemComponent(task);
-                    const detailsEl = taskLiComp.querySelector("details");
-                    if (oldTaskItem.isOpen) {
-                        detailsEl.setAttribute("open", "");
-                    }
-                    const newTaskItem = {
-                        taskLIComponent: taskLiComp,
-                        task,
-                        isOpen: oldTaskItem.isOpen,
-                        isEditing: oldTaskItem.isEditing,
-                    }
-                    newTaskItems.push(newTaskItem);
-                }
-            } else {
-                const taskLIComp = createTaskListItemComponent(task);
-                const temp = {
-                    taskLIComponent: taskLIComp,
-                    task,
-                    isOpen: false,
-                    isEditing: false,
-                };
-                newTaskItems.push(temp);
+        //Remove deleted tasks from DOM:
+        for (let i = 0; i < taskIDs.length; i++) {
+            const id = taskIDs[i];
+            if (!tasks.map(t => t.id).includes(id)) {
+                //old tasks include some id which is not present in new tasks,
+                //so it should be removed.
+                const node = findTaskNodeByID(id);
+                node.parentNode.removeChild(node);
+                // console.log(`DELETED ${id}`);
             }
         }
-        taskItems = newTaskItems.slice();
+
+        for (let i = 0; i < tasks.length; i++) {
+            const task = tasks[i];
+            if (taskIDs.includes(task.id)) {
+                // console.log(`UPDATED ${task.id}`);
+                updateTaskLIComponent(task);
+            } else {
+                // console.log(`ADDED ${task.id}`);
+                const taskIdToInsertAfter = tasks[i].id;
+                const taskNodeToInsertAfter = findTaskNodeByID(taskIdToInsertAfter);
+                const taskNodeToInsertBefore =
+                    taskNodeToInsertAfter === null ? null :
+                        taskNodeToInsertAfter.nextSibling;
+
+                const taskLIComp = createTaskListItemComponent(task);
+                if (taskNodeToInsertBefore === null) {
+                    taskListEl.appendChild(taskLIComp);
+                } else {
+                    taskListEl.insertBefore(taskLIComp, taskNodeToInsertBefore);
+                }
+            }
+        }
+        taskIDs = tasks.map(task => task.id);
+        // console.log(`AFTER ${taskIDs}`);
     }
 
     function createTaskListItemComponent(task) {
