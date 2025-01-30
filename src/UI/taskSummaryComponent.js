@@ -3,6 +3,8 @@ function createTaskSummaryComponent(task) {
     taskSummaryElement.classList.add("task-summary");
     const checkBoxEl = document.createElement("input");
     checkBoxEl.type = "checkbox";
+    checkBoxEl.classList.add("task-finished");
+    checkBoxEl.checked = task.finished;
 
     const taskTitlePara = document.createElement("p");
     taskTitlePara.classList.add("task-title");
