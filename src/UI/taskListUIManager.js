@@ -40,9 +40,7 @@ const taskListUIManager = (function () {
                     const oldTaskItem = taskItems.find(taskItem => taskItem.task.id === task.id);
 
                     const taskLiComp = createTaskListItemComponent(task);
-                    const taskDetailsComp = createTaskDetailsComponent(task);
                     const detailsEl = taskLiComp.querySelector("details");
-                    detailsEl.appendChild(taskDetailsComp);
                     if (oldTaskItem.isOpen) {
                         detailsEl.setAttribute("open", "");
                     }
@@ -56,9 +54,6 @@ const taskListUIManager = (function () {
                 }
             } else {
                 const taskLIComp = createTaskListItemComponent(task);
-                const taskDetailsComp = createTaskDetailsComponent(task);
-                const detailsEl = taskLIComp.querySelector("details");
-                detailsEl.appendChild(taskDetailsComp);
                 const temp = {
                     taskLIComponent: taskLIComp,
                     task,
@@ -79,7 +74,9 @@ const taskListUIManager = (function () {
 
         const detailsElement = document.createElement("details");
         const taskSummary = createTaskSummaryComponent(task);
+        const taskDetailsComp = createTaskDetailsComponent(task);
         detailsElement.appendChild(taskSummary);
+        detailsElement.appendChild(taskDetailsComp);
         taskListItemEl.appendChild(detailsElement);
         return taskListItemEl;
     }
