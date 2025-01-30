@@ -9,6 +9,9 @@
     --sidebar-bg-color: rgb(236, 236, 236);
     --nav-item-bg-color-hover: rgb(223, 223, 223);
     --nav-item-bg-color-active: rgb(214, 214, 214);
+    --task-item-summary-bg-color: var(--sidebar-bg-color);
+    --accent-color: teal;
+    --icon-hover-bg-color: var(--accent-color);
 }
 
 body {
@@ -65,6 +68,10 @@ li {
     list-style-type: none;
 }
 
+button {
+    cursor: pointer;
+}
+
 nav ul {
     padding: 1em 0;
     display: grid;
@@ -104,4 +111,61 @@ button.add-project:hover {
 button.add-project:active,
 nav ul li:active {
     background-color: var(--nav-item-bg-color-active);
+}
+
+.task-list-container {
+    padding: 2em;
+}
+
+.task-item {
+    margin-bottom: 1em;
+}
+
+summary.task-summary {
+    display: grid;
+    grid-template-columns: auto 1fr auto 70px auto auto;
+    gap: 1em;
+    background-color: var(--task-item-summary-bg-color);
+    padding: 0.6em;
+    align-items: center;
+}
+
+.task-due-date {
+    text-align: center;
+}
+
+.task-title {
+    margin-right: auto;
+    font-size: 1.2rem;
+}
+
+button.task-details {
+    background-color: transparent;
+    border: 2px solid teal;
+    color: teal;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+button.edit-task,
+button.remove-task {
+    width: 18px;
+    height: 18px;
+    background-color: black;
+}
+
+button.edit-task {
+    mask: url(./images/pencil.svg);
+}
+
+button.remove-task {
+    mask: url(./images/trash-can-outline.svg);
+    width: 20px;
+    height: 20px;
+}
+
+button.edit-task:hover,
+button.remove-task:hover {
+    background-color: var(--icon-hover-bg-color);
 }
