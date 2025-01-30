@@ -1,6 +1,21 @@
 import { createTaskSummaryComponent } from "./taskSummaryComponent.js";
 
 const UIManager = (function () {
+    const taskItems = [];
+
+    function displayTasks(tasks) {
+        taskItems = [];
+        const taskListEl = document.querySelector(".task-list");
+        tasks.forEach((task => {
+            const taskListItemComponent = createTaskListItemComponent(task);
+            taskListEl.appendChild(taskListItemComponent);
+            taskItems.push({
+                taskListItemComponent,
+                isEditing: false,
+                isOpen: false,
+            })
+        }));
+    }
 
     function createTaskListItemComponent(task) {
         const taskListItemEl = document.createElement("li");
@@ -14,6 +29,9 @@ const UIManager = (function () {
         taskListItemEl.appendChild(detailsElement);
         return taskListItemEl;
     }
-    
+
+    return {
+        displayTasks,
+    }
 
 })();
