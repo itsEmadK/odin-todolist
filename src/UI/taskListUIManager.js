@@ -3,18 +3,42 @@ import { createTaskSummaryComponent } from "./taskSummaryComponent.js";
 const taskListUIManager = (function () {
     let taskItems = [];
 
-    function displayTasks(tasks) {
-        taskItems = [];
-        const taskListEl = document.querySelector(".task-list");
-        tasks.forEach((task => {
-            const taskListItemComponent = createTaskListItemComponent(task);
-            taskListEl.appendChild(taskListItemComponent);
-            taskItems.push({
-                taskListItemComponent,
-                isEditing: false,
-                isOpen: false,
-            })
-        }));
+    // taskItem : {
+    //     taskLIComponent,
+    //     task,
+    //     isOpen,
+    //     isEditing,
+    // }
+
+
+    function updateTaskItemsArray(tasks) {
+        const newTaskItems = [];
+        const oldTasks = taskItems.map(item => item.task);
+        const oldTaskIDs = oldTasks.map(task => task.id);
+        //Update taskItems based on changes(edition, removal, addition):
+        for (let i = 0; i < tasks.length; i++) {
+            const task = tasks[i];
+            if (oldTaskIDs.includes(task.id)) {
+                const oldTask = oldTasks.find(old => old.id === task.id);
+                if (oldTask == task) { //task has not been changed since last render.
+                    const oldTaskItem = taskItems.find(taskItem => taskItem.task.id === task.id);
+                    newTaskItems.push(oldTaskItem);
+                } else { //task info has been changed.
+                    const oldTaskItem = taskItems.find(taskItem => taskItem.task.id === task.id);
+                    oldTaskItem.task = task;
+                    newTaskItems.push(oldTaskItem);
+                }
+            } else {
+                const temp = {
+                    taskLIComponent: createTaskListItemComponent(task),
+                    task,
+                    isOpen: false,
+                    isEditing: false,
+                };
+                newTaskItems.push(temp);
+            }
+        }
+        taskItems = newTaskItems.slice();
     }
 
     function createTaskListItemComponent(task) {
