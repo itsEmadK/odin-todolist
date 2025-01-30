@@ -139,6 +139,11 @@ nav ul li:active {
     border-left: 4px solid red;
 }
 
+.task-item:hover {
+    box-shadow: 2px 2px 6px rgb(151, 151, 151);
+    transform: scale(1.005);
+}
+
 summary.task-summary {
     display: grid;
     grid-template-columns: auto 1fr auto 70px auto auto;
