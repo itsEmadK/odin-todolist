@@ -3,3 +3,41 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+:root {
+    --header-bg-color: rgb(182, 105, 118);
+    --sidebar-bg-color: rgb(236, 236, 236);
+}
+
+body {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: minmax(150px, 300px) 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        "header header"
+        "sidebar list"
+        "sidebar footer";
+    font-family: sans-serif;
+}
+
+header {
+    background-color: var(--header-bg-color);
+    color: white;
+    padding: 0.5em 1em;
+    grid-area: header;
+}
+
+div.sidebar {
+    background-color: var(--sidebar-bg-color);
+    border-right: 2px solid rgb(194, 194, 194);
+    grid-area: sidebar;
+}
+
+div.task-list-container {
+    grid-area: list;
+}
+
+footer {
+    grid-area: footer;
+}
