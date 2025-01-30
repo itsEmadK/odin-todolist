@@ -63,6 +63,30 @@ const taskListUIManager = (function () {
         return null;
     }
 
+    function updateTaskLIComponent(task) {
+        const taskItemComponent = findTaskNodeByID(task.id);
+        const summaryTitlePara = taskItemComponent.querySelector(".task-title");
+        const summaryFinishedCheckbox = taskItemComponent.querySelector("input.task-finished");
+        const summaryDueDatePara = taskItemComponent.querySelector(".task-due-date");
+        summaryTitlePara.innerText = task.title;
+        summaryFinishedCheckbox.checked = task.finished;
+        summaryDueDatePara.innerText = (task.dueDate ?? "No due date");
+
+        const detailsDiv = taskItemComponent.querySelector(".task-details-default");
+
+        if (detailsDiv !== null) {
+            const detailsTitlePara = detailsDiv.querySelector(".title");
+            const detailsDescPara = detailsDiv.querySelector(".description");
+            const detailsPriorityPara = detailsDiv.querySelector(".priority");
+            const detailsDueDatePara = detailsDiv.querySelector(".due-date");
+
+            detailsTitlePara.innerText = task.title;
+            detailsDescPara.innerText = task.desc;
+            detailsPriorityPara.innerText = task.priority;
+            detailsDueDatePara.innerText = (task.dueDate ?? "No due date");
+        }
+
+    }
 
     function createTaskListItemComponent(task) {
         const taskListItemEl = document.createElement("li");
