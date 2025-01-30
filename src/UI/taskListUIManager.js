@@ -35,11 +35,12 @@ const taskListUIManager = (function () {
             const task = tasks[i];
             if (oldTaskIDs.includes(task.id)) {
                 const oldTask = oldTasks.find(old => old.id === task.id);
-                if (oldTask == task) { //task has not been changed since last render.
+                if (task.equals(oldTask)) { //task has not been changed since last render.
                     const oldTaskItem = taskItems.find(taskItem => taskItem.task.id === task.id);
                     newTaskItems.push(oldTaskItem);
                 } else { //task info has been changed(so definitely its not in edit mode).
                     const oldTaskItem = taskItems.find(taskItem => taskItem.task.id === task.id);
+                    console.log("===>", task);
 
                     const taskLiComp = createTaskListItemComponent(task);
                     const detailsEl = taskLiComp.querySelector("details");
