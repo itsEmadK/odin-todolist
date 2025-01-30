@@ -63,6 +63,16 @@ class Task {
         clone.finished = this.finished;
         return clone;
     }
+
+    equals(task) {
+        return (
+            this.id === task.id &&
+            this.title === task.title &&
+            this.desc === task.desc &&
+            this.dueDate === task.dueDate &&
+            this.priority === task.priority
+        );
+    }
 }
 
 export {
