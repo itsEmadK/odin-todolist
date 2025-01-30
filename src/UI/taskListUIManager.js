@@ -1,4 +1,5 @@
 import { createTaskSummaryComponent } from "./taskSummaryComponent.js";
+import { createTaskDetailsComponent } from "./taskDetailsComponent.js";
 
 const taskListUIManager = (function () {
     let taskItems = [];
@@ -16,10 +17,10 @@ const taskListUIManager = (function () {
         taskListEl.innerHTML = "";
         taskItems.forEach(item => {
             const taskItemComponent = item.taskLIComponent;
-            const task = item.task;
-            const isOpen = item.isOpen;
-            const isEditing = item.isEditing;
             taskListEl.appendChild(taskItemComponent);
+            taskItemComponent.addEventListener("click", e => {
+                item.isOpen = !item.isOpen;
+            });
         });
     }
 
@@ -35,14 +36,31 @@ const taskListUIManager = (function () {
                 if (oldTask == task) { //task has not been changed since last render.
                     const oldTaskItem = taskItems.find(taskItem => taskItem.task.id === task.id);
                     newTaskItems.push(oldTaskItem);
-                } else { //task info has been changed.
+                } else { //task info has been changed(so definitely its not in edit mode).
                     const oldTaskItem = taskItems.find(taskItem => taskItem.task.id === task.id);
-                    oldTaskItem.task = task;
-                    newTaskItems.push(oldTaskItem);
+
+                    const taskLiComp = createTaskListItemComponent(task);
+                    const taskDetailsComp = createTaskDetailsComponent(task);
+                    const detailsEl = taskLiComp.querySelector("details");
+                    detailsEl.appendChild(taskDetailsComp);
+                    if (oldTaskItem.isOpen) {
+                        detailsEl.setAttribute("open", "");
+                    }
+                    const newTaskItem = {
+                        taskLIComponent: taskLiComp,
+                        task,
+                        isOpen: oldTaskItem.isOpen,
+                        isEditing: oldTaskItem.isEditing,
+                    }
+                    newTaskItems.push(newTaskItem);
                 }
             } else {
+                const taskLIComp = createTaskListItemComponent(task);
+                const taskDetailsComp = createTaskDetailsComponent(task);
+                const detailsEl = taskLIComp.querySelector("details");
+                detailsEl.appendChild(taskDetailsComp);
                 const temp = {
-                    taskLIComponent: createTaskListItemComponent(task),
+                    taskLIComponent: taskLIComp,
                     task,
                     isOpen: false,
                     isEditing: false,
