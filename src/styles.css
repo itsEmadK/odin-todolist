@@ -65,7 +65,7 @@ li {
 }
 
 nav ul {
-    padding: 1em 1em;
+    padding: 1em 0;
     display: grid;
     gap: 4px;
     border-top: 2px solid black;
@@ -73,7 +73,7 @@ nav ul {
 
 nav ul li {
     cursor: pointer;
-    padding: 0.5em 0.2em;
+    padding: 0.5em 1.2em;
 }
 
 nav ul li:hover {
