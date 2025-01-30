@@ -3,7 +3,8 @@ import { createTaskDetailsComponent } from "./taskDetailsComponent.js";
 
 const taskListUIManager = (function () {
     let taskItems = [];
-
+    let onTaskUpdated = null;
+    let onTaskRemoved = null;
     // taskItem : {
     //     taskLIComponent,
     //     task,
@@ -82,8 +83,17 @@ const taskListUIManager = (function () {
         return taskListItemEl;
     }
 
+    function setOnTaskEditedListener(listenerFn) {
+        onTaskUpdated = listenerFn;
+    }
+
+    function setOnTaskRemovedListener(listenerFn) {
+        onTaskRemoved = listenerFn;
+    }
     return {
         displayTasks,
+        setOnTaskRemovedListener,
+        setOnTaskEditedListener,
     }
 
 })();
