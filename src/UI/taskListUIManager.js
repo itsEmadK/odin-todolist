@@ -49,6 +49,21 @@ const taskListUIManager = (function () {
         // console.log(`AFTER ${taskIDs}`);
     }
 
+    function findTaskNodeByID(taskID) {
+        const taskListEl = document.querySelector(".task-list");
+        const taskListItems = [...taskListEl.querySelectorAll("li.task-item")];
+
+        for (let i = 0; i < taskListItems.length; i++) {
+            const taskLI = taskListItems[i];
+            if (taskLI.dataset.taskID === taskID) {
+                return taskLI;
+            }
+        }
+
+        return null;
+    }
+
+
     function createTaskListItemComponent(task) {
         const taskListItemEl = document.createElement("li");
         taskListItemEl.classList.add("task-item");
