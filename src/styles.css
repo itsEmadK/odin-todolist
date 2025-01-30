@@ -121,6 +121,23 @@ nav ul li:active {
     margin-bottom: 1em;
 }
 
+
+.task-item[data-priority="1"] .task-summary {
+    border-left: 4px solid green;
+}
+
+.task-item[data-priority="2"] .task-summary {
+    border-left: 4px solid yellowgreen;
+}
+
+.task-item[data-priority="3"] .task-summary {
+    border-left: 4px solid orange;
+}
+
+.task-item[data-priority="4"] .task-summary {
+    border-left: 4px solid red;
+}
+
 summary.task-summary {
     display: grid;
     grid-template-columns: auto 1fr auto 70px auto auto;
