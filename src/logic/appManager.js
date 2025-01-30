@@ -49,7 +49,7 @@ const appManager = (function () {
 
     function generateNextTaskIDForProject(projectID) {
         const projectIndex = findProjectIndexByID(projectID);
-        return `${projectID}` + projects[projectIndex].length;
+        return `${projectID}` + projects[projectIndex].tasks.length;
     }
 
     function generateNextProjectID() {
