@@ -150,6 +150,7 @@ summary.task-summary {
 
 .task-due-date {
     text-align: center;
+    font-size: 0.8rem;
 }
 
 .task-title {
