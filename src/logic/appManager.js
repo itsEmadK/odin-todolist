@@ -87,6 +87,7 @@ const appManager = (function () {
                 tasks.push(task);
             }));
         }));
+        return tasks;
     }
 
     return {
