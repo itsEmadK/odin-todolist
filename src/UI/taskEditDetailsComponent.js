@@ -1,6 +1,6 @@
 import { Task } from "../logic/task.js";
 
-function createTaskEditDetailsComponent(task, onSave, onDiscard) {
+function createTaskEditDetailsComponent(task) {
     const taskEditDetailsDiv = document.createElement("div");
     taskEditDetailsDiv.classList.add("task-details-edit");
 
@@ -48,21 +48,10 @@ function createTaskEditDetailsComponent(task, onSave, onDiscard) {
     const saveEditButton = document.createElement("button");
     saveEditButton.innerText = "Save";
     saveEditButton.classList.add("save-edit");
-    saveEditButton.addEventListener("click", (e) => {
-        e.preventDefault();
-        const taskTitle = titleInput.value;
-        const taskDesc = descInput.value;
-        const taskDueDate = dateInput.value;
-        const taskPriority = prioritySelect.value;
-        onSave(taskTitle, taskDesc, taskDueDate, taskPriority);
-    });
 
     const discardEditButton = document.createElement("button");
     discardEditButton.innerText = "Discard";
     discardEditButton.classList.add("discard-edit");
-    discardEditButton.addEventListener("click", () => {
-        onDiscard();
-    });
 
     const formButtonsContainer = document.createElement("div");
     formButtonsContainer.classList.add("form-buttons-container");
