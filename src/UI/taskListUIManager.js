@@ -172,7 +172,7 @@ const taskListUIManager = (function () {
                         const newPriority = +prioritySelect.value;
                         const newDueDate = dueDateInput.value;
 
-                        onTaskUpdated(newTitle, newDesc, newPriority, newDueDate);
+                        onTaskUpdated(taskNode.dataset.taskID, newTitle, newDesc, newPriority, newDueDate);
                     }
 
                     const detailsComponent = taskNode.querySelector(".task-details-default");
