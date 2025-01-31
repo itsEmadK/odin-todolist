@@ -12,6 +12,7 @@ function createTaskEditDetailsComponent(task) {
     const titleLabelTextNode = document.createTextNode("Title:")
     const titleInput = document.createElement("input");
     titleInput.type = "text";
+    titleInput.setAttribute("required", "");
     titleInput.classList.add("title-input");
     titleInput.value = task.title;
     titleContainer.appendChild(titleLabelTextNode);
@@ -49,6 +50,7 @@ function createTaskEditDetailsComponent(task) {
     const saveEditButton = document.createElement("button");
     saveEditButton.innerText = "Save";
     saveEditButton.type = "submit";
+    saveEditButton.setAttribute("form", taskForm.id);
     saveEditButton.classList.add("save-edit");
 
     const discardEditButton = document.createElement("button");
