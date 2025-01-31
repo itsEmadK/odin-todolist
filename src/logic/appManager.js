@@ -40,6 +40,22 @@ const appManager = (function () {
         addTaskToProject(projectID, task);
     }
 
+    function editTaskInProject(projectID, taskID, taskTitle, taskDesc, taskDueDate, taskPriority) {
+        const project = findProjectByID(projectID);
+        const projectIndex = findProjectIndexByID(projectID);
+        if (projectIndex !== -1) {
+            const newTask = new Task(
+                taskID,
+                taskTitle,
+                taskDesc,
+                taskDueDate,
+                taskPriority
+            )
+            project.editTask(newTask);
+            projects[projectIndex] = project;
+        }
+    }
+
     function addTaskToProject(projectID, task) {
         const projectIndex = findProjectIndexByID(projectID);
         const project = projects[projectIndex];
@@ -90,6 +106,11 @@ const appManager = (function () {
         return tasks;
     }
 
+    function getProjectTasks(projectID) {
+        const projectIndex = findProjectIndexByID(projectID);
+        return projects[projectIndex].getAllTasks();
+    }
+
     return {
         findProjectByID,
         findTaskByID,
@@ -99,6 +120,8 @@ const appManager = (function () {
         removeTaskFromProject,
         getAllProjects,
         getAllTasks,
+        editTaskInProject,
+        getProjectTasks,
     };
 })();
 
