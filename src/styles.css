@@ -202,6 +202,14 @@ button.remove-task:hover {
     font-size: 0.8rem;
 }
 
+.task-details-default.disabled {
+    display: none;
+}
+
+.task-details-edit.disabled {
+    display: none;
+}
+
 .task-details-default .title-container,
 .task-details-default .description-container,
 .task-details-default .due-date-container,

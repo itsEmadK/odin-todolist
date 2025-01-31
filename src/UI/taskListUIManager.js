@@ -1,5 +1,6 @@
 import { createTaskSummaryComponent } from "./taskSummaryComponent.js";
 import { createTaskDetailsComponent } from "./taskDetailsComponent.js";
+import { createTaskEditDetailsComponent } from "./taskEditDetailsComponent.js"
 
 const taskListUIManager = (function () {
     let taskIDs = [];
@@ -109,10 +110,15 @@ const taskListUIManager = (function () {
         const detailsElement = document.createElement("details");
         const taskSummary = createTaskSummaryComponent(task);
         const taskDetailsComp = createTaskDetailsComponent(task);
+        const taskEditDetailsComp = createTaskEditDetailsComponent(task);
+        taskEditDetailsComp.classList.add("disabled");
+
         detailsElement.appendChild(taskSummary);
         detailsElement.appendChild(taskDetailsComp);
+        detailsElement.appendChild(taskEditDetailsComp);
         taskListItemEl.appendChild(detailsElement);
         addTaskNodeListenersForDetailsOpenState(taskListItemEl);
+        addTaskNodeListenersForEditButton(taskListItemEl);
         return taskListItemEl;
     }
 
