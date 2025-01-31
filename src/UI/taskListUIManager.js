@@ -133,6 +133,21 @@ const taskListUIManager = (function () {
         }
     }
 
+    function addTaskNodeListenersForEditButton(taskNode, task) {
+        if (taskNode !== null) {
+            const detailsEl = taskNode.querySelector("details");
+            const taskEditButton = taskNode.querySelector("button.edit-task");
+            taskEditButton.addEventListener("click", () => {
+                const detailsComponent = detailsEl.querySelector(".task-details-default");
+                const detailsEditComponent = detailsEl.querySelector(".task-details-edit");
+                detailsComponent.classList.add("disabled");
+                detailsEditComponent.classList.remove("disabled");
+                detailsEl.setAttribute("open", "");
+            });
+
+        }
+    }
+
     function setOnTaskEditedListener(listenerFn) {
         onTaskUpdated = listenerFn;
     }
