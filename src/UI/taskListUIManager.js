@@ -173,6 +173,10 @@ const taskListUIManager = (function () {
 
                         onTaskUpdated(newTitle, newDesc, newPriority, newDueDate);
                     }
+
+                    const detailsComponent = taskNode.querySelector(".task-details-default");
+                    detailsEditComponent.classList.add("disabled");
+                    detailsComponent.classList.remove("disabled");
                 }
             });
         }
