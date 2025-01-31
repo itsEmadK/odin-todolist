@@ -29,6 +29,18 @@ const taskListUIManager = (function () {
             if (taskIDs.includes(task.id)) {
                 // console.log(`UPDATED ${task.id}`);
                 updateTaskLIComponent(task);
+                const taskIdToInsertAfter = tasks[i].id;
+                const taskNodeToInsertAfter = findTaskNodeByID(taskIdToInsertAfter);
+                const taskNodeToInsertBefore =
+                    taskNodeToInsertAfter === null ? null :
+                        taskNodeToInsertAfter.nextSibling;
+
+                const taskLIComp = findTaskNodeByID(task.id);
+                if (taskNodeToInsertBefore === null) {
+                    taskListEl.appendChild(taskLIComp);
+                } else {
+                    taskListEl.insertBefore(taskLIComp, taskNodeToInsertBefore);
+                }
             } else {
                 // console.log(`ADDED ${task.id}`);
                 const taskIdToInsertAfter = tasks[i].id;
