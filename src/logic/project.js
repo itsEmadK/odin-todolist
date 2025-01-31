@@ -46,8 +46,8 @@ class Project {
         return -1;
     }
 
-    editTask(taskID, task) {
-        const taskIndex = this.#findTaskIndexByID(taskID);
+    editTask(task) {
+        const taskIndex = this.#findTaskIndexByID(task.id);
         if (taskIndex > -1) {
             tasks[taskIndex] = task.clone();
             return true;
