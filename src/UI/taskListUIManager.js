@@ -119,6 +119,7 @@ const taskListUIManager = (function () {
         taskListItemEl.appendChild(detailsElement);
         addTaskNodeListenersForDetailsOpenState(taskListItemEl);
         addTaskNodeListenersForEditButton(taskListItemEl);
+        addListenerForTaskSaveEditButton(taskListItemEl)
         return taskListItemEl;
     }
 
@@ -145,6 +146,35 @@ const taskListUIManager = (function () {
                 detailsEl.setAttribute("open", "");
             });
 
+        }
+    }
+
+    function addListenerForTaskSaveEditButton(taskNode) {
+        const detailsEditComponent = taskNode.querySelector(".task-details-edit");
+        if (detailsEditComponent !== null) {
+            const taskForm = detailsEditComponent.querySelector("form");
+            const saveEditButton = detailsEditComponent.querySelector(".save-edit");
+            // const discardEditButton = detailsEditComponent.querySelector(".discard-edit");
+
+            saveEditButton.addEventListener("click", (e) => {
+                e.preventDefault();
+                if (taskForm.reportValidity()) {
+                    if (onTaskUpdated !== null) {
+
+                        const titleInput = taskForm.querySelector("input.title-input");
+                        const prioritySelect = taskForm.querySelector("select.priority-input");
+                        const descInput = taskForm.querySelector("input.description-input");
+                        const dueDateInput = taskForm.querySelector("input.due-date-input");
+
+                        const newTitle = titleInput.value;
+                        const newDesc = descInput.value;
+                        const newPriority = +prioritySelect.value;
+                        const newDueDate = dueDateInput.value;
+
+                        onTaskUpdated(newTitle, newDesc, newPriority, newDueDate);
+                    }
+                }
+            });
         }
     }
 
