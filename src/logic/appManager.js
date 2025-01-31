@@ -44,14 +44,12 @@ const appManager = (function () {
         const project = findProjectByID(projectID);
         const projectIndex = findProjectIndexByID(projectID);
         if (projectIndex !== -1) {
-            const newTask = new Task(
-                taskID,
-                taskTitle,
-                taskDesc,
-                taskDueDate,
-                taskPriority
-            )
-            project.editTask(newTask);
+            const task = project.getTask(taskID);
+            task.title = taskTitle;
+            task.desc = taskDesc;
+            task.priority = taskPriority;
+            task.dueDate = taskDueDate;
+            project.editTask(task);
             projects[projectIndex] = project;
         }
     }
@@ -111,6 +109,17 @@ const appManager = (function () {
         return projects[projectIndex].getAllTasks();
     }
 
+    function toggleTaskFinishedState(projectID, taskID) {
+        const projectIndex = findProjectIndexByID(projectID);
+        const project = findProjectByID(projectID);
+        const task = project.getTask(taskID);
+        task.finished = !task.finished;
+        project.editTask(task);
+        console.log(project.getAllTasks());
+
+        projects[projectIndex] = project;
+    }
+
     return {
         findProjectByID,
         findTaskByID,
@@ -122,6 +131,7 @@ const appManager = (function () {
         getAllTasks,
         editTaskInProject,
         getProjectTasks,
+        toggleTaskFinishedState,
     };
 })();
 

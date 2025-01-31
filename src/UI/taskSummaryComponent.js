@@ -6,7 +6,8 @@ function createTaskSummaryComponent(task, onDetailsToggled, onTaskEditButtonClic
     checkBoxEl.classList.add("task-finished");
     checkBoxEl.checked = task.finished;
     checkBoxEl.addEventListener("click", (e) => {
-        e.preventDefault();
+        // e.preventDefault();
+        e.stopPropagation();
         onTaskFinishedToggled();
     });
 
@@ -21,21 +22,15 @@ function createTaskSummaryComponent(task, onDetailsToggled, onTaskEditButtonClic
     const taskDetailsButton = document.createElement("button");
     taskDetailsButton.classList.add("task-details");
     taskDetailsButton.innerText = "DETAILS";
-    taskDetailsButton.addEventListener("click", () => {
-        onDetailsToggled();
-    });
+    taskDetailsButton.addEventListener("click", onDetailsToggled);
 
     const editTaskButton = document.createElement("button");
     editTaskButton.classList.add("edit-task");
-    editTaskButton.addEventListener("click", () => {
-        onTaskEditButtonClicked();
-    });
+    editTaskButton.addEventListener("click", onTaskEditButtonClicked);
 
     const removeTaskButton = document.createElement("button");
     removeTaskButton.classList.add("remove-task");
-    removeTaskButton.addEventListener("click", () => {
-        onTaskRemoveClicked();
-    });
+    removeTaskButton.addEventListener("click", onTaskRemoveClicked);
 
     taskSummaryElement.appendChild(checkBoxEl);
     taskSummaryElement.appendChild(taskTitlePara);

@@ -1,5 +1,4 @@
 import { createTaskItemComponent } from "./taskItemComponent.js";
-import { taskListUIManager } from "./taskListUIManager";
 
 const uiManager = (function () {
     let selectedProjectID = null;
@@ -7,11 +6,9 @@ const uiManager = (function () {
     function addTaskNodeToList(task, onTaskEdit, onTaskRemoved, onTaskFinishedToggled) {
         const taskItem = createTaskItemComponent(
             task,
-            (newTitle, newDesc, newPriority, newDueDate) => {
-                onTaskEdit(newTitle, newDesc, newPriority, newDueDate)
-            },
-            () => onTaskRemoved(),
-            () => onTaskFinishedToggled()
+            onTaskEdit,
+            onTaskRemoved,
+            onTaskFinishedToggled
         );
         taskListEl.appendChild(taskItem);
     }
@@ -25,12 +22,16 @@ const uiManager = (function () {
 
     function updateTaskNodeInTheList(task) {
         const taskItemComponent = findTaskNodeByID(task.id);
+        taskItemComponent.dataset.priority = task.priority;
         const summaryTitlePara = taskItemComponent.querySelector(".task-title");
         const summaryFinishedCheckbox = taskItemComponent.querySelector("input.task-finished");
         const summaryDueDatePara = taskItemComponent.querySelector(".task-due-date");
+        const summaryCheckbox = taskItemComponent.querySelector("input.task-finished");
+
         summaryTitlePara.innerText = task.title;
         summaryFinishedCheckbox.checked = task.finished;
-        summaryDueDatePara.innerText = (task.dueDate ?? "No due date");
+        summaryDueDatePara.innerText = (task.dueDate === null || task.dueDate === "") ? "No due date" : task.dueDate;
+        summaryCheckbox.checked = task.finished;
 
         const detailsDiv = taskItemComponent.querySelector(".task-details-default");
 
@@ -43,10 +44,10 @@ const uiManager = (function () {
             detailsTitlePara.innerText = task.title;
             detailsDescPara.innerText = task.desc;
             detailsPriorityPara.innerText = task.priority;
-            detailsDueDatePara.innerText = (task.dueDate ?? "No due date");
+            detailsDueDatePara.innerText = (task.dueDate === null || task.dueDate === "") ? "No due date" : task.dueDate;
         }
 
-        const editDetailsDiv = taskListUIManager.querySelector(".task-details-edit");
+        const editDetailsDiv = taskItemComponent.querySelector(".task-details-edit");
         if (editDetailsDiv !== null) {
             const taskForm = editDetailsDiv.querySelector("form");
             const titleInput = taskForm.querySelector("input.title-input");
@@ -56,9 +57,8 @@ const uiManager = (function () {
 
             titleInput.innerText = task.title;
             prioritySelect.value = task.priority;
-            descInput.innerText = task.desc;
-            dueDateInput.innerText = task.dueDate;
-
+            descInput.value = task.desc;
+            dueDateInput.value = task.dueDate;
         }
     }
 
