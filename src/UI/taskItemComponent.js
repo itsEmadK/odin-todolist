@@ -9,13 +9,17 @@ function createTaskItemComponent(task, onTaskEdited, onTaskRemoved, onTaskFinish
     taskListItemEl.dataset.taskID = task.id;
 
     const detailsElement = document.createElement("details");
+    detailsElement.addEventListener("click", (e) => e.preventDefault());
     const taskSummary = createTaskSummaryComponent(task,
         () => {
             detailsElement.toggleAttribute("open");
         },
         () => {
+            detailsElement.setAttribute("open", "");
+            const detailsDefaultDiv = taskListItemEl.querySelector(".task-details-default");
             const editDetailsDiv = taskListItemEl.querySelector(".task-details-edit");
             editDetailsDiv.classList.remove("disabled");
+            detailsDefaultDiv.classList.add("disabled");
         },
         () => {
             onTaskRemoved();
@@ -27,14 +31,15 @@ function createTaskItemComponent(task, onTaskEdited, onTaskRemoved, onTaskFinish
     const taskDetailsComp = createTaskDetailsComponent(task);
     const taskEditDetailsComp = createTaskEditDetailsComponent(
         task,
-        () => {
-            onTaskEdited();
+        (newTitle, newDesc, newPriority, newDueDate) => {
+            onTaskEdited(newTitle, newDesc, newPriority, newDueDate);
         },
         () => {
             const detailsEditComponent = taskListItemEl.querySelector(".task-details-edit");
-            const detailsComponent = taskListItemEl.querySelector(".task-details.default");
+            const detailsComponent = taskListItemEl.querySelector(".task-details-default");
             detailsEditComponent.classList.add("disabled");
             detailsComponent.classList.remove("disabled");
+            detailsElement.removeAttribute("open");
         }
     );
     taskEditDetailsComp.classList.add("disabled");
