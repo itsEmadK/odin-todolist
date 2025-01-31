@@ -112,7 +112,19 @@ const taskListUIManager = (function () {
         detailsElement.appendChild(taskSummary);
         detailsElement.appendChild(taskDetailsComp);
         taskListItemEl.appendChild(detailsElement);
+        addTaskNodeListenersForDetailsOpenState(taskListItemEl);
         return taskListItemEl;
+    }
+
+    function addTaskNodeListenersForDetailsOpenState(taskNode) {
+        if (taskNode !== null) {
+            const detailsEl = taskNode.querySelector("details");
+            const taskDetailsButton = taskNode.querySelector("button.task-details");
+            taskDetailsButton.addEventListener("click", () => {
+                detailsEl.toggleAttribute("open");
+            });
+            detailsEl.addEventListener("click", e => { e.preventDefault() });
+        }
     }
 
     function setOnTaskEditedListener(listenerFn) {
