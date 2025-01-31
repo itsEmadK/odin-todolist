@@ -7,7 +7,9 @@ const uiManager = (function () {
     function addTaskNodeToList(task, onTaskEdit, onTaskRemoved, onTaskFinishedToggled) {
         const taskItem = createTaskItemComponent(
             task,
-            () => onTaskEdit(),
+            (newTitle, newDesc, newPriority, newDueDate) => {
+                onTaskEdit(newTitle, newDesc, newPriority, newDueDate)
+            },
             () => onTaskRemoved(),
             () => onTaskFinishedToggled()
         );

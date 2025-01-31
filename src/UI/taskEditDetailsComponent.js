@@ -55,6 +55,10 @@ function createTaskEditDetailsComponent(task, onTaskEdited, onEditDiscard) {
     saveEditButton.addEventListener("click", (e) => {
         e.preventDefault();
         if (taskForm.reportValidity()) {
+            const newTitle = titleInput.value;
+            const newDesc = descInput.value;
+            const newPriority = +prioritySelect.value;
+            const newDueDate = dateInput.value;
             onTaskEdited(newTitle, newDesc, newPriority, newDueDate);
         }
     })
