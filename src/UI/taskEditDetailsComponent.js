@@ -48,10 +48,12 @@ function createTaskEditDetailsComponent(task) {
 
     const saveEditButton = document.createElement("button");
     saveEditButton.innerText = "Save";
+    saveEditButton.type = "submit";
     saveEditButton.classList.add("save-edit");
 
     const discardEditButton = document.createElement("button");
     discardEditButton.innerText = "Discard";
+    discardEditButton.type = "button";
     discardEditButton.classList.add("discard-edit");
 
     const formButtonsContainer = document.createElement("div");
