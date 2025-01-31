@@ -49,7 +49,7 @@ class Project {
     editTask(task) {
         const taskIndex = this.#findTaskIndexByID(task.id);
         if (taskIndex > -1) {
-            tasks[taskIndex] = task.clone();
+            this.tasks[taskIndex] = task.clone();
             return true;
         } else {
             return false;
