@@ -313,3 +313,11 @@ button.add-task img {
 button.add-task.disabled {
     display: none;
 }
+
+.task-details-edit h3 {
+    padding: 1em 0 0 0;
+    margin-left: 1em;
+    margin-right: 1em;
+    line-height: 1.5;
+    border-bottom: 2px solid black;
+}
