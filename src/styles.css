@@ -226,7 +226,9 @@ button.remove-task:hover {
 }
 
 
-.task-details-edit form {
+.task-details-edit form,
+.add-task-form-container,
+#add-task-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 1.5em 3.5em;
@@ -234,10 +236,10 @@ button.remove-task:hover {
     font-size: 0.8rem;
 }
 
-.task-details-edit .title-container,
-.task-details-edit .description-container,
-.task-details-edit .priority-container,
-.task-details-edit .due-date-container {
+:is(.task-details-edit) .title-container,
+:is(.task-details-edit) .description-container,
+:is(.task-details-edit) .priority-container,
+:is(.task-details-edit) .due-date-container {
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -298,4 +300,16 @@ button.add-task:active {
 
 button.add-task img {
     width: 24px;
+}
+
+.add-task-container:has(button.add-task.disabled) {
+    background-color: var(--sidebar-bg-color);
+}
+
+.add-task-form.disabled {
+    display: none;
+}
+
+button.add-task.disabled {
+    display: none;
 }
