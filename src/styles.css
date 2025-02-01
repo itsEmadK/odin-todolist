@@ -275,3 +275,27 @@ button.discard-edit {
     color: white;
     font-weight: bold;
 }
+
+
+button.add-task {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    font-size: 1.25rem;
+    border: none;
+    padding: 0.5em 0.2em;
+    width: 100%;
+}
+
+button.add-task:hover {
+    background-color: var(--nav-item-bg-color-hover);
+}
+
+button.add-task:active {
+    background-color: var(--nav-item-bg-color-active);
+}
+
+button.add-task img {
+    width: 24px;
+}
