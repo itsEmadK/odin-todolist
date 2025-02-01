@@ -3,6 +3,7 @@ import { createTaskItemComponent } from "./taskItemComponent.js";
 const uiManager = (function () {
     let selectedProjectID = null;
     const taskListEl = document.querySelector(".task-list");
+    let onTaskAddedListener = null;
     function addTaskNodeToList(task, onTaskEdit, onTaskRemoved, onTaskFinishedToggled) {
         const taskItem = createTaskItemComponent(
             task,
@@ -76,10 +77,24 @@ const uiManager = (function () {
         return null;
     }
 
+    function addOnTaskAddedListener(listenerFn) {
+        const addTaskButton = document.querySelector("button.add-task");
+        if (onTaskAddedListener !== null) {
+            addTaskButton.removeEventListener("click", onTaskAddedListener);
+        }
+        onTaskAddedListener = listenerFn;
+        addTaskButton.addEventListener("click", onTaskAddedListener);
+    }
+
+    function reOrderTaskNode(task, newPosition) {
+        //TODO: reposition task node to new position.
+    }
+
     return {
         addTaskNodeToList,
         removeTaskNodeFromList,
         updateTaskNodeInTheList,
+        addOnTaskAddedListener,
     }
 
 })();
