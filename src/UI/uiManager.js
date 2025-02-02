@@ -1,9 +1,9 @@
 import { createTaskItemComponent } from "./taskItemComponent.js";
+import { createTaskFormComponent } from "./taskFormComponent.js";
 
 const uiManager = (function () {
     let selectedProjectID = null;
     const taskListEl = document.querySelector(".task-list");
-    let onTaskAddedListener = null;
     function addTaskNodeToList(task, onTaskEdit, onTaskRemoved, onTaskFinishedToggled) {
         const taskItem = createTaskItemComponent(
             task,
@@ -48,7 +48,7 @@ const uiManager = (function () {
             detailsDueDatePara.innerText = (task.dueDate === null || task.dueDate === "") ? "No due date" : task.dueDate;
         }
 
-        const editDetailsDiv = taskItemComponent.querySelector(".task-details-edit");
+        const editDetailsDiv = taskItemComponent.querySelector(".task-form-container");
         if (editDetailsDiv !== null) {
             const taskForm = editDetailsDiv.querySelector("form");
             const titleInput = taskForm.querySelector("input.title-input");
@@ -77,24 +77,48 @@ const uiManager = (function () {
         return null;
     }
 
-    function addOnTaskAddedListener(listenerFn) {
-        const addTaskButton = document.querySelector("button.add-task");
-        if (onTaskAddedListener !== null) {
-            addTaskButton.removeEventListener("click", onTaskAddedListener);
-        }
-        onTaskAddedListener = listenerFn;
-        addTaskButton.addEventListener("click", onTaskAddedListener);
+    function reOrderTaskNode(taskID, newPosition) {
+        //TODO: reposition task node to new position.
     }
 
-    function reOrderTaskNode(task, newPosition) {
-        //TODO: reposition task node to new position.
+    function init(onTaskAddedListener) {
+        const addTaskContainer = document.querySelector(".add-task-container");
+        const addTaskButton = addTaskContainer.querySelector("button.add-task");
+        const taskFormContainer = document.createElement("div");
+        taskFormContainer.classList.add("task-form-container", "hidden");
+
+        const taskForm = createTaskFormComponent(
+            (newTitle, newDesc, newPriority, newDueDate) => {
+                onTaskAddedListener(newTitle, newDesc, newPriority, newDueDate);
+                addTaskContainer.appendChild(addTaskButton);
+                addTaskButton.classList.remove("hidden");
+                taskFormContainer.classList.add("hidden");
+                taskFormContainer.querySelector("form").reset();
+            },
+            () => {
+                addTaskButton.classList.remove("hidden");
+                taskFormContainer.classList.add("hidden");
+                taskFormContainer.querySelector("form").reset();
+            },
+            null
+        );
+        const taskFormContainerHeading = document.createElement("h3");
+        taskFormContainerHeading.innerText = "Add a new task";
+        taskFormContainer.appendChild(taskFormContainerHeading);
+        taskFormContainer.appendChild(taskForm);
+
+        addTaskContainer.appendChild(taskFormContainer);
+        addTaskButton.addEventListener("click", () => {
+            taskFormContainer.classList.remove("hidden");
+            addTaskButton.classList.add("hidden");
+        });
     }
 
     return {
         addTaskNodeToList,
         removeTaskNodeFromList,
         updateTaskNodeInTheList,
-        addOnTaskAddedListener,
+        init,
     }
 
 })();

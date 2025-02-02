@@ -306,11 +306,15 @@ button.add-task img {
     background-color: var(--sidebar-bg-color);
 }
 
-.add-task-form.disabled {
+.task-form-container.hidden {
     display: none;
 }
 
-button.add-task.disabled {
+.task-form-container:hover {
+    box-shadow: 2px 2px 8px rgb(198, 197, 197);
+}
+
+button.add-task.hidden {
     display: none;
 }
 
