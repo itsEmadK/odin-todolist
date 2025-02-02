@@ -140,11 +140,17 @@ const uiManager = (function () {
         });
     }
 
+    function removeAllTaskNodes() {
+        const list = document.querySelector(".task-list");
+        list.innerHTML = "";
+    }
+
     return {
         addTaskNodeToList,
         removeTaskNodeFromList,
         updateTaskNodeInTheList,
         init,
+        removeAllTaskNodes,
     }
 
 })();
