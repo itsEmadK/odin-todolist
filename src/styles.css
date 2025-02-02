@@ -24,6 +24,7 @@ body {
         "sidebar list"
         "sidebar footer";
     font-family: sans-serif;
+    overflow: hidden;
 }
 
 header {
@@ -45,6 +46,7 @@ div.sidebar {
 
 div.task-list-container {
     grid-area: list;
+    overflow: auto;
 }
 
 footer {
