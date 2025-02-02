@@ -17,7 +17,9 @@ function createTaskSummaryComponent(task, onDetailsToggled, onTaskEditButtonClic
 
     const taskDueDatePara = document.createElement("p");
     taskDueDatePara.classList.add("task-due-date");
-    taskDueDatePara.innerText = (task.dueDate ?? "No due date");
+    taskDueDatePara.innerText =
+        task.dueDate === null || task.dueDate === "" ?
+            "No due date" : task.dueDate;
 
     const taskDetailsButton = document.createElement("button");
     taskDetailsButton.classList.add("task-details");
