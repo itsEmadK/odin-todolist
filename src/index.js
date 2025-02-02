@@ -12,6 +12,46 @@ appManager.createTaskInProject(1, "T4", "TD4", null, 4);
 
 let selectedProjectID = 0;
 
+let onTaskAdded = (title, desc, priority, dueDate) => {
+    const taskID = appManager.createTaskInProject(selectedProjectID, title, desc, dueDate, priority);
+    uiManager.addTaskNodeToList(
+        appManager.findTaskByID(selectedProjectID, taskID),
+        (newTitle, newDesc, newPriority, newDueDate) => {
+            onTaskEdited(taskID, newTitle, newDesc, newPriority, newDueDate);
+        },
+        () => {
+            onTaskRemoved(taskID);
+        },
+        () => {
+            onTaskFinishedToggled(taskID);
+        }
+    );
+}
+
+let onTaskEdited = (taskID, newTitle, newDesc, newPriority, newDueDate) => {
+    appManager.editTaskInProject(
+        selectedProjectID, taskID,
+        newTitle,
+        newDesc,
+        newDueDate,
+        newPriority
+    );
+    const editedTask = appManager.findTaskByID(selectedProjectID, taskID)
+    uiManager.updateTaskNodeInTheList(editedTask);
+};
+
+let onTaskRemoved = (taskID) => {
+    appManager.removeTaskFromProject(selectedProjectID, taskID);
+    uiManager.removeTaskNodeFromList(taskID);
+}
+
+let onTaskFinishedToggled = (taskID) => {
+    appManager.toggleTaskFinishedState(selectedProjectID, taskID);
+    const editedTask = appManager.findTaskByID(selectedProjectID, taskID);
+    uiManager.updateTaskNodeInTheList(editedTask);
+}
+
+uiManager.init(onTaskAdded);
 
 const tasks = appManager.getProjectTasks(selectedProjectID);
 
@@ -20,27 +60,10 @@ for (let i = 0; i < tasks.length; i++) {
     uiManager.addTaskNodeToList(
         task,
         (newTitle, newDesc, newPriority, newDueDate) => {
-            appManager.editTaskInProject(
-                selectedProjectID, task.id,
-                newTitle,
-                newDesc,
-                newDueDate,
-                newPriority
-            );
-            const editedTask = appManager.findTaskByID(selectedProjectID, task.id)
-            uiManager.updateTaskNodeInTheList(editedTask);
-            console.log("EEE", task);
+            onTaskEdited(task.id, newTitle, newDesc, newPriority, newDueDate);
         },
-        () => {
-            appManager.removeTaskFromProject(selectedProjectID, task.id);
-            uiManager.removeTaskNodeFromList(task);
-        },
-        () => {
-            appManager.toggleTaskFinishedState(selectedProjectID, task.id);
-            const editedTask = appManager.findTaskByID(selectedProjectID, task.id);
-            uiManager.updateTaskNodeInTheList(editedTask);
-            console.log("TTT", task);
-        },
+        () => { onTaskRemoved(task.id) },
+        () => { onTaskFinishedToggled(task.id) }
     )
 
 }
