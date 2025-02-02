@@ -206,7 +206,7 @@ button.remove-task:hover {
     display: none;
 }
 
-.task-details-edit.disabled {
+.task-form-container.disabled {
     display: none;
 }
 
@@ -226,7 +226,7 @@ button.remove-task:hover {
 }
 
 
-.task-details-edit form,
+.task-form-container form,
 .add-task-form-container,
 #add-task-form {
     display: grid;
@@ -236,18 +236,18 @@ button.remove-task:hover {
     font-size: 0.8rem;
 }
 
-:is(.task-details-edit) .title-container,
-:is(.task-details-edit) .description-container,
-:is(.task-details-edit) .priority-container,
-:is(.task-details-edit) .due-date-container {
+:is(.task-form-container) .title-container,
+:is(.task-form-container) .description-container,
+:is(.task-form-container) .priority-container,
+:is(.task-form-container) .due-date-container {
     display: flex;
     flex-direction: column;
     gap: 6px;
     font-weight: bold;
 }
 
-.task-details-edit select,
-.task-details-edit input {
+.task-form-container select,
+.task-form-container input {
     font-family: sans-serif;
     padding: 2px 4px;
     width: 80%;
@@ -302,7 +302,7 @@ button.add-task img {
     width: 24px;
 }
 
-.add-task-container:has(button.add-task.disabled) {
+.add-task-container :has(form) {
     background-color: var(--sidebar-bg-color);
 }
 
@@ -314,7 +314,7 @@ button.add-task.disabled {
     display: none;
 }
 
-.task-details-edit h3 {
+.task-form-container h3 {
     padding: 1em 0 0 0;
     margin-left: 1em;
     margin-right: 1em;
