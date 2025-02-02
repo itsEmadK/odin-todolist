@@ -90,6 +90,11 @@ nav ul li:hover {
     background-color: var(--nav-item-bg-color-hover);
 }
 
+nav ul li.selected {
+    background-color: rgb(203, 203, 203);
+}
+
+
 button.add-project {
     background-color: transparent;
     border: none;

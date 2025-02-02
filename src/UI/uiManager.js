@@ -1,5 +1,6 @@
 import { createTaskItemComponent } from "./taskItemComponent.js";
 import { createTaskFormComponent } from "./taskFormComponent.js";
+import { TIME_FRAME_VALUES } from "./timeFrameValues.js";
 
 const uiManager = (function () {
     let selectedProjectID = null;
@@ -81,7 +82,7 @@ const uiManager = (function () {
         //TODO: reposition task node to new position.
     }
 
-    function init(onTaskAddedListener) {
+    function init(onTaskAddedListener, onTimeFrameChanged) {
         const addTaskContainer = document.querySelector(".add-task-container");
         const addTaskButton = addTaskContainer.querySelector("button.add-task");
         const taskFormContainer = document.createElement("div");
@@ -111,6 +112,31 @@ const uiManager = (function () {
         addTaskButton.addEventListener("click", () => {
             taskFormContainer.classList.remove("hidden");
             addTaskButton.classList.add("hidden");
+        });
+
+        const noTimeFrameEl = document.querySelector(".nav-item.all");
+        const todayTimeFrameEl = document.querySelector(".nav-item.today");
+        const nextSevenTimeFrameEl = document.querySelector(".nav-item.next-7-days");
+
+        noTimeFrameEl.addEventListener("click", () => {
+            onTimeFrameChanged(TIME_FRAME_VALUES.NONE);
+            todayTimeFrameEl.classList.remove("selected");
+            nextSevenTimeFrameEl.classList.remove("selected");
+            noTimeFrameEl.classList.add("selected");
+        });
+
+        todayTimeFrameEl.addEventListener("click", () => {
+            onTimeFrameChanged(TIME_FRAME_VALUES.TODAY);
+            todayTimeFrameEl.classList.add("selected");
+            nextSevenTimeFrameEl.classList.remove("selected");
+            noTimeFrameEl.classList.remove("selected");
+        });
+
+        nextSevenTimeFrameEl.addEventListener("click", () => {
+            onTimeFrameChanged(TIME_FRAME_VALUES.NEXT_SEVEN_DAYS);
+            todayTimeFrameEl.classList.remove("selected");
+            nextSevenTimeFrameEl.classList.add("selected");
+            noTimeFrameEl.classList.remove("selected");
         });
     }
 
