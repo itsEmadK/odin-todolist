@@ -38,6 +38,7 @@ const appManager = (function () {
             taskDueDate, taskPriority
         );
         addTaskToProject(projectID, task);
+        return newTaskID;
     }
 
     function editTaskInProject(projectID, taskID, taskTitle, taskDesc, taskDueDate, taskPriority) {
@@ -75,6 +76,7 @@ const appManager = (function () {
         const project = new Project(nextProjectID, projectTitle, projectDesc);
         project.tasks = tasks.slice();
         projects.push(project);
+        return nextProjectID;
     }
 
     function removeProject(projectID) {
