@@ -10,7 +10,9 @@ function createTaskItemComponent(task, onTaskEdited, onTaskRemoved, onTaskFinish
 
     const detailsElement = document.createElement("details");
     detailsElement.addEventListener("click", (e) => {
-        e.preventDefault();
+        if (![...e.target.classList].includes("due-date-input")) {
+            e.preventDefault();
+        }
     });
     const taskSummary = createTaskSummaryComponent(task,
         () => {
