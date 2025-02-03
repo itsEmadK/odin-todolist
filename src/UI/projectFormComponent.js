@@ -20,7 +20,9 @@ function createProjectFormComponent(onSave, onDiscard) {
     saveProjectBtn.classList.add("save-edit");
     saveProjectBtn.addEventListener("click", (e) => {
         e.preventDefault();
-        onSave(titleInput.value);
+        if (projectForm.reportValidity()) {
+            onSave(titleInput.value);
+        }
     });
 
     const discardProjectBtn = document.createElement("button");
