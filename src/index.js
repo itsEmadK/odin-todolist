@@ -68,6 +68,7 @@ let onSelectedProjectChanged = (projectID) => {
 
 let onProjectAdded = (projectTitle, projectDesc) => {
     const newProjectID = appManager.createProject(projectTitle, projectDesc);
+    selectedProjectID = newProjectID;
     uiManager.addProjectNodeToList(appManager.findProjectByID(newProjectID));
 }
 
