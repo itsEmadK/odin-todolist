@@ -1,4 +1,5 @@
 import { Task } from "../logic/task.js";
+import { format, isValid } from "date-fns";
 
 function createTaskDetailsComponent(task) {
     const taskDetailsDiv = document.createElement("div");
@@ -33,7 +34,11 @@ function createTaskDetailsComponent(task) {
     dateLabelPara.classList.add("due-date-label");
     const datePara = document.createElement("p");
     datePara.classList.add("due-date");
-    datePara.innerText = task.dueDate;
+    if (isValid(task.dueDate)) {
+        datePara.innerText = format(task.dueDate, "yyyy/MM/dd");
+    } else {
+        datePara.innerText = "No due date"
+    }
     dateContainer.appendChild(dateLabelPara);
     dateContainer.appendChild(datePara);
 

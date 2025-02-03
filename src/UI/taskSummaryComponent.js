@@ -1,3 +1,5 @@
+import { format, isValid } from "date-fns";
+
 function createTaskSummaryComponent(task, onDetailsToggled, onTaskEditButtonClicked, onTaskRemoveClicked, onTaskFinishedToggled) {
     const taskSummaryElement = document.createElement("summary");
     taskSummaryElement.classList.add("task-summary");
@@ -7,7 +9,7 @@ function createTaskSummaryComponent(task, onDetailsToggled, onTaskEditButtonClic
     checkBoxEl.checked = task.finished;
     checkBoxEl.addEventListener("click", (e) => {
         // e.preventDefault();
-        e.stopPropagation();
+        // e.stopPropagation();
         onTaskFinishedToggled();
     });
 
@@ -17,9 +19,11 @@ function createTaskSummaryComponent(task, onDetailsToggled, onTaskEditButtonClic
 
     const taskDueDatePara = document.createElement("p");
     taskDueDatePara.classList.add("task-due-date");
-    taskDueDatePara.innerText =
-        task.dueDate === null || task.dueDate === "" ?
-            "No due date" : task.dueDate;
+    if (isValid(task.dueDate)) {
+        taskDueDatePara.innerText = format(task.dueDate, "yyyy/MM/dd");
+    } else {
+        taskDueDatePara.innerText = "No due date"
+    }
 
     const taskDetailsButton = document.createElement("button");
     taskDetailsButton.classList.add("task-details");

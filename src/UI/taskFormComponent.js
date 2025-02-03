@@ -1,4 +1,5 @@
 import { createPrioritySelectElement } from "./prioritySelectComponent.js";
+import { isValid } from "date-fns";
 
 function createTaskFormComponent(onSave, onDiscard, task = null) {
     const taskForm = document.createElement("form");
@@ -39,8 +40,8 @@ function createTaskFormComponent(onSave, onDiscard, task = null) {
     const dateInput = document.createElement("input");
     dateInput.type = "datetime-local";
     dateInput.classList.add("due-date-input");
-    if (task !== null) {
-        dateInput.value = task.dueDate ?? "";
+    if (task !== null && isValid(task.dueDate)) {
+        dateInput.value = task.dueDate.toISOString().slice(0, 16);;
     }
     dateContainer.appendChild(dateLabelTextNode);
     dateContainer.appendChild(dateInput);

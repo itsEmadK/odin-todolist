@@ -1,6 +1,7 @@
 import { createTaskItemComponent } from "./taskItemComponent.js";
 import { createTaskFormComponent } from "./taskFormComponent.js";
 import { TIME_FRAME_VALUES } from "./timeFrameValues.js";
+import { isValid, format } from "date-fns";
 
 const uiManager = (function () {
     let selectedProjectID = null;
@@ -32,7 +33,11 @@ const uiManager = (function () {
 
         summaryTitlePara.innerText = task.title;
         summaryFinishedCheckbox.checked = task.finished;
-        summaryDueDatePara.innerText = (task.dueDate === null || task.dueDate === "") ? "No due date" : task.dueDate;
+        if (isValid(task.dueDate)) {
+            summaryDueDatePara.innerText = format(task.dueDate, "yyyy/MM/dd");
+        } else {
+            summaryDueDatePara.innerText = "No due date"
+        }
         summaryCheckbox.checked = task.finished;
 
         const detailsDiv = taskItemComponent.querySelector(".task-details-default");
@@ -46,7 +51,11 @@ const uiManager = (function () {
             detailsTitlePara.innerText = task.title;
             detailsDescPara.innerText = task.desc;
             detailsPriorityPara.innerText = task.priority;
-            detailsDueDatePara.innerText = (task.dueDate === null || task.dueDate === "") ? "No due date" : task.dueDate;
+            if (isValid(task.dueDate)) {
+                detailsDueDatePara.innerText = format(task.dueDate, "yyyy/MM/dd");
+            } else {
+                detailsDueDatePara.innerText = "No due date"
+            }
         }
 
         const editDetailsDiv = taskItemComponent.querySelector(".task-form-container");
@@ -60,7 +69,9 @@ const uiManager = (function () {
             titleInput.innerText = task.title;
             prioritySelect.value = task.priority;
             descInput.value = task.desc;
-            dueDateInput.value = task.dueDate;
+            if (isValid(task.dueDate)) {
+                dueDateInput.value = task.dueDate.toISOString().slice(0, 16);;
+            }
         }
     }
 
