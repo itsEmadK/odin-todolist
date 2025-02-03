@@ -2,6 +2,7 @@ import { createTaskItemComponent } from "./taskItemComponent.js";
 import { createTaskFormComponent } from "./taskFormComponent.js";
 import { TIME_FRAME_VALUES } from "./timeFrameValues.js";
 import { isValid, format } from "date-fns";
+import { createProjectFormComponent } from "./projectFormComponent.js";
 
 const uiManager = (function () {
     let isAnyProjectSelectedYet = false;
@@ -93,7 +94,12 @@ const uiManager = (function () {
         //TODO: reposition task node to new position.
     }
 
-    function init(onTaskAddedListener, onTimeFrameChanged, onProjectSelected) {
+    function init(
+        onTaskAddedListener,
+        onTimeFrameChanged,
+        onProjectSelected,
+        onProjectAdded
+    ) {
         const addTaskContainer = document.querySelector(".add-task-container");
         const addTaskButton = addTaskContainer.querySelector("button.add-task");
         addTaskButton.classList.add("hidden");
@@ -151,7 +157,6 @@ const uiManager = (function () {
             noTimeFrameEl.classList.remove("selected");
         });
 
-
         const projectNodes = document.querySelectorAll(".project");
         projectNodes.forEach(node => {
             node.addEventListener("click", () => {
@@ -163,6 +168,32 @@ const uiManager = (function () {
                 onProjectSelected(projectID);
             });
         });
+
+        const projectsDiv = document.querySelector(".projects");
+        const addProjectBtn = projectsDiv.querySelector("button.add-project");
+        addProjectBtn.addEventListener("click", () => {
+            addProjectBtn.classList.add("hidden");
+            projectForm.classList.remove("hidden");
+        });
+
+        const projectForm = createProjectFormComponent(
+            (projectTitle, projectDesc) => {
+                onProjectAdded(projectTitle, projectDesc);
+                const form = projectsDiv.querySelector(".project-form");
+                form.reset();
+                form.classList.add("hidden");
+                addProjectBtn.classList.remove("hidden");
+            },
+            () => {
+                const form = projectsDiv.querySelector(".project-form");
+                form.reset();
+                form.classList.add("hidden");
+                addProjectBtn.classList.remove("hidden");
+            }
+        );
+        projectForm.classList.add("hidden");
+        projectsDiv.appendChild(projectForm);
+
     }
 
 
@@ -170,8 +201,23 @@ const uiManager = (function () {
         const projectList = document.querySelector(".project-list");
         const projectNode = document.createElement("li");
         projectNode.classList.add("project");
+        projectNode.classList.add("selected");
+
+        const projectListEl = document.querySelector(".project-list");
+        const projectNodes = projectListEl.querySelectorAll("li.project");
+        projectNodes.forEach(node => {
+            node.classList.remove("selected");
+        });
         projectNode.dataset.projectID = project.id;
         projectNode.innerText = project.title;
+        projectNode.addEventListener("click", () => {
+            const projectListEl = document.querySelector(".project-list");
+            const projectNodes = projectListEl.querySelectorAll("li.project");
+            projectNodes.forEach(node => {
+                node.classList.remove("selected");
+            });
+            projectNode.classList.add("selected");
+        });
         projectList.appendChild(projectNode);
     }
 

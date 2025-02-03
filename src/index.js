@@ -4,20 +4,6 @@ import { uiManager } from "./UI/uiManager.js";
 import { TIME_FRAME_VALUES } from "./UI/timeFrameValues.js";
 import { isValid } from "date-fns";
 
-const project1ID = appManager.createProject("P1", "PD1");
-const project2ID = appManager.createProject("P2", "PD1");
-const project3ID = appManager.createProject("P3", "PD1");
-
-uiManager.addProjectNodeToList(appManager.findProjectByID(project1ID));
-uiManager.addProjectNodeToList(appManager.findProjectByID(project2ID));
-uiManager.addProjectNodeToList(appManager.findProjectByID(project3ID));
-
-appManager.createTaskInProject(0, "T1", "TD1", new Date(2025, 0, 28), 1);
-appManager.createTaskInProject(1, "T2", "TD2", new Date(2025, 1, 3), 2);
-appManager.createTaskInProject(1, "T3333", "TD2", new Date(2025, 11, 3), 2);
-appManager.createTaskInProject(0, "T3", "TD3", new Date(2025, 0, 5), 3);
-appManager.createTaskInProject(2, "ATa3", "TD3", new Date(2024, 1, 5), 3);
-
 let selectedProjectID = 0;
 let currentTimeFrame = TIME_FRAME_VALUES.NONE;
 
@@ -71,7 +57,6 @@ let onTimeFrameChanged = (timeFrame) => {
     });
 }
 
-
 let onSelectedProjectChanged = (projectID) => {
     selectedProjectID = +projectID;
     const tasks = appManager.getProjectTasks(selectedProjectID, currentTimeFrame);
@@ -81,13 +66,19 @@ let onSelectedProjectChanged = (projectID) => {
     });
 }
 
+let onProjectAdded = (projectTitle, projectDesc) => {
+    const newProjectID = appManager.createProject(projectTitle, projectDesc);
+    uiManager.addProjectNodeToList(appManager.findProjectByID(newProjectID));
+}
+
 
 
 uiManager.init(
     onTaskAdded,
     onTimeFrameChanged,
-    onSelectedProjectChanged
+    onSelectedProjectChanged,
+    onProjectAdded
 );
 
 
-onTimeFrameChanged(TIME_FRAME_VALUES.NONE)
+// onTimeFrameChanged(TIME_FRAME_VALUES.NONE)
