@@ -12,8 +12,9 @@ appManager.createTaskInProject(1, "T4", "TD4", null, 4);
 
 let selectedProjectID = 0;
 
+
 let onTaskAdded = (title, desc, priority, dueDate) => {
-    const taskID = appManager.createTaskInProject(selectedProjectID, title, desc, dueDate, priority);
+    const taskID = appManager.createTaskInProject(selectedProjectID, title, desc, new Date(dueDate), +priority);
     uiManager.addTaskNodeToList(
         appManager.findTaskByID(selectedProjectID, taskID),
         (newTitle, newDesc, newPriority, newDueDate) => {
@@ -33,8 +34,8 @@ let onTaskEdited = (taskID, newTitle, newDesc, newPriority, newDueDate) => {
         selectedProjectID, taskID,
         newTitle,
         newDesc,
-        newDueDate,
-        newPriority
+        new Date(dueDate),
+        +priority
     );
     const editedTask = appManager.findTaskByID(selectedProjectID, taskID)
     uiManager.updateTaskNodeInTheList(editedTask);
