@@ -4,6 +4,7 @@ import { TIME_FRAME_VALUES } from "./timeFrameValues.js";
 import { isValid, format } from "date-fns";
 
 const uiManager = (function () {
+    let isAnyProjectSelectedYet = false;
     const taskListEl = document.querySelector(".task-list");
     function addTaskNodeToList(task, onTaskEdit, onTaskRemoved, onTaskFinishedToggled) {
         const taskItem = createTaskItemComponent(
@@ -92,7 +93,7 @@ const uiManager = (function () {
         //TODO: reposition task node to new position.
     }
 
-    function init(onTaskAddedListener, onTimeFrameChanged) {
+    function init(onTaskAddedListener, onTimeFrameChanged, onProjectSelected) {
         const addTaskContainer = document.querySelector(".add-task-container");
         const addTaskButton = addTaskContainer.querySelector("button.add-task");
         const taskFormContainer = document.createElement("div");
@@ -147,6 +148,18 @@ const uiManager = (function () {
             todayTimeFrameEl.classList.remove("selected");
             nextSevenTimeFrameEl.classList.add("selected");
             noTimeFrameEl.classList.remove("selected");
+        });
+
+
+        const projectNodes = document.querySelectorAll(".project");
+        projectNodes.forEach(node => {
+            node.addEventListener("click", () => {
+                isAnyProjectSelectedYet = true;
+                const projectID = node.dataset.projectID;
+                projectNodes.forEach(node => node.classList.remove("selected"));
+                node.classList.add("selected");
+                onProjectSelected(projectID);
+            });
         });
     }
 
