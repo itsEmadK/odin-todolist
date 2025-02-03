@@ -1,5 +1,7 @@
 import { Task } from "./task.js";
 import { Project } from "./project.js";
+import { add, isValid, isBefore, isAfter, isSameDay } from "date-fns";
+import { TIME_FRAME_VALUES } from "../UI/timeFrameValues.js";
 
 const appManager = (function () {
 
@@ -106,9 +108,36 @@ const appManager = (function () {
         return tasks;
     }
 
-    function getProjectTasks(projectID) {
+    function getProjectTasks(projectID, timeFrame = TIME_FRAME_VALUES.NONE) {
         const projectIndex = findProjectIndexByID(projectID);
-        return projects[projectIndex].getAllTasks();
+        const allProjectTasks = projects[projectIndex].getAllTasks();
+        switch (timeFrame) {
+            case TIME_FRAME_VALUES.NONE:
+                return allProjectTasks;
+            case TIME_FRAME_VALUES.NEXT_SEVEN_DAYS:
+                return allProjectTasks.filter((task) => {
+                    const taskDate = task.dueDate;
+                    if (isValid(taskDate)) {
+                        const today = new Date(Date.now());
+                        const limit = add(today, { days: 7 });
+                        if (isBefore(taskDate, limit) && isAfter(taskDate, today)) {
+                            return task;
+                        }
+                    }
+                });
+            case TIME_FRAME_VALUES.TODAY:
+                return allProjectTasks.filter((task) => {
+                    const taskDate = task.dueDate;
+                    if (isValid(taskDate)) {
+                        const today = new Date(Date.now());
+                        if (isSameDay(today, taskDate)) {
+                            return task;
+                        }
+                    }
+                });
+            default:
+                return [];
+        }
     }
 
     function toggleTaskFinishedState(projectID, taskID) {
@@ -117,8 +146,6 @@ const appManager = (function () {
         const task = project.getTask(taskID);
         task.finished = !task.finished;
         project.editTask(task);
-        console.log(project.getAllTasks());
-
         projects[projectIndex] = project;
     }
 
