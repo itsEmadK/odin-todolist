@@ -164,12 +164,12 @@ const uiManager = (function () {
     }
 
 
-    function addProjectNodeToList(projectID, projectTitle) {
+    function addProjectNodeToList(project) {
         const projectList = document.querySelector(".project-list");
         const projectNode = document.createElement("li");
         projectNode.classList.add("project");
-        projectNode.dataset.projectID = projectID;
-        projectNode.innerText = projectTitle;
+        projectNode.dataset.projectID = project.id;
+        projectNode.innerText = project.title;
         projectList.appendChild(projectNode);
     }
 
