@@ -70,6 +70,11 @@ let onProjectAdded = (projectTitle, projectDesc) => {
     const newProjectID = appManager.createProject(projectTitle, projectDesc);
     selectedProjectID = newProjectID;
     uiManager.addProjectNodeToList(appManager.findProjectByID(newProjectID));
+    uiManager.removeAllTaskNodes();
+    const tasks = appManager.getProjectTasks(selectedProjectID, currentTimeFrame);
+    tasks.forEach(task => {
+        addTaskNodeToList(task);
+    })
 }
 
 
