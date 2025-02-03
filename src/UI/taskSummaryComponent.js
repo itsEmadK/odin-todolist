@@ -9,7 +9,7 @@ function createTaskSummaryComponent(task, onDetailsToggled, onTaskEditButtonClic
     checkBoxEl.checked = task.finished;
     checkBoxEl.addEventListener("click", (e) => {
         // e.preventDefault();
-        // e.stopPropagation();
+        e.stopPropagation();
         onTaskFinishedToggled();
     });
 
