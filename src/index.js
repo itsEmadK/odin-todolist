@@ -86,5 +86,3 @@ uiManager.init(
     onProjectAdded
 );
 
-
-// onTimeFrameChanged(TIME_FRAME_VALUES.NONE)
