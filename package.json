@@ -18,5 +18,8 @@
         "predeploy": "git checkout gh-pages",
         "deploy": "git merge main --no-edit && npm run build && git add dist -f && git commit -m 'Deployment commit' && git subtree push --prefix dist origin gh-pages",
         "postdeploy": "git checkout main"
+    },
+    "dependencies": {
+        "date-fns": "^4.1.0"
     }
 }
