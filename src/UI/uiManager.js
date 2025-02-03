@@ -161,15 +161,13 @@ const uiManager = (function () {
         projectList.addEventListener("click", (e) => {
             if ([...e.target.classList].includes("project")) {
                 const node = e.target;
-                node.addEventListener("click", () => {
-                    addTaskButton.classList.remove("hidden");
-                    isAnyProjectSelectedYet = true;
-                    const projectID = node.dataset.projectID;
-                    const projectNodes = projectList.querySelectorAll(".project");
-                    projectNodes.forEach(node => node.classList.remove("selected"));
-                    node.classList.add("selected");
-                    onProjectSelected(projectID);
-                });
+                addTaskButton.classList.remove("hidden");
+                isAnyProjectSelectedYet = true;
+                const projectID = node.dataset.projectID;
+                const projectNodes = projectList.querySelectorAll(".project");
+                projectNodes.forEach(node => node.classList.remove("selected"));
+                node.classList.add("selected");
+                onProjectSelected(projectID);
             }
         });
 
