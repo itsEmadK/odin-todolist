@@ -339,6 +339,7 @@ button.add-task.hidden {
     grid-template-areas:
         "heading heading"
         "title title"
+        "desc desc"
         "save discard";
     gap: 8px;
     background-color: rgb(221, 220, 220);
@@ -351,12 +352,21 @@ h4.project-form-heading {
     border-bottom: 2px solid black;
 }
 
-input.project-title {
+input.project-title,
+input.project-desc {
     padding: 4px 6px;
     font-family: sans-serif;
-    grid-area: title;
     font-size: 1em;
 }
+
+input.project-title {
+    grid-area: title;
+}
+
+input.project-desc {
+    grid-area: desc;
+}
+
 
 button.save-project {
     grid-area: "save";
@@ -365,4 +375,12 @@ button.save-project {
 
 button.discard-project {
     grid-area: "discard";
+}
+
+button.add-project.hidden {
+    display: none;
+}
+
+.project-form.hidden {
+    display: none;
 }

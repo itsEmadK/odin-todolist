@@ -14,6 +14,11 @@ function createProjectFormComponent(onSave, onDiscard) {
     titleInput.classList.add("project-title");
     titleInput.setAttribute("required", "");
 
+    const descInput = document.createElement("input");
+    descInput.type = "text";
+    descInput.placeholder = "Project Description";
+    descInput.classList.add("project-desc");
+
     const saveProjectBtn = document.createElement("button");
     saveProjectBtn.innerText = "Save";
     saveProjectBtn.type = "submit";
@@ -21,7 +26,7 @@ function createProjectFormComponent(onSave, onDiscard) {
     saveProjectBtn.addEventListener("click", (e) => {
         e.preventDefault();
         if (projectForm.reportValidity()) {
-            onSave(titleInput.value);
+            onSave(titleInput.value, descInput.value);
         }
     });
 
@@ -33,6 +38,7 @@ function createProjectFormComponent(onSave, onDiscard) {
 
     projectForm.appendChild(formHeading);
     projectForm.appendChild(titleInput);
+    projectForm.appendChild(descInput);
     projectForm.appendChild(saveProjectBtn);
     projectForm.appendChild(discardProjectBtn);
 
