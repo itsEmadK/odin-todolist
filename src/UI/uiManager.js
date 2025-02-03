@@ -4,7 +4,6 @@ import { TIME_FRAME_VALUES } from "./timeFrameValues.js";
 import { isValid, format } from "date-fns";
 
 const uiManager = (function () {
-    let selectedProjectID = null;
     const taskListEl = document.querySelector(".task-list");
     function addTaskNodeToList(task, onTaskEdit, onTaskRemoved, onTaskFinishedToggled) {
         const taskItem = createTaskItemComponent(
@@ -151,6 +150,16 @@ const uiManager = (function () {
         });
     }
 
+
+    function addProjectNodeToList(projectID, projectTitle) {
+        const projectList = document.querySelector(".project-list");
+        const projectNode = document.createElement("li");
+        projectNode.classList.add("project");
+        projectNode.dataset.projectID = projectID;
+        projectNode.innerText = projectTitle;
+        projectList.appendChild(projectNode);
+    }
+
     function removeAllTaskNodes() {
         const list = document.querySelector(".task-list");
         list.innerHTML = "";
@@ -162,6 +171,7 @@ const uiManager = (function () {
         updateTaskNodeInTheList,
         init,
         removeAllTaskNodes,
+        addProjectNodeToList,
     }
 
 })();
