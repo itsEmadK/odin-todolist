@@ -198,6 +198,10 @@ const uiManager = (function () {
 
 
     function addProjectNodeToList(project) {
+
+        const addTaskButton = document.querySelector("button.add-task");
+        addTaskButton.classList.remove("hidden");
+
         const projectList = document.querySelector(".project-list");
         const projectNode = document.createElement("li");
         projectNode.classList.add("project");
