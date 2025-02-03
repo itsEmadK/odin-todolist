@@ -96,6 +96,7 @@ const uiManager = (function () {
     function init(onTaskAddedListener, onTimeFrameChanged, onProjectSelected) {
         const addTaskContainer = document.querySelector(".add-task-container");
         const addTaskButton = addTaskContainer.querySelector("button.add-task");
+        addTaskButton.classList.add("hidden");
         const taskFormContainer = document.createElement("div");
         taskFormContainer.classList.add("task-form-container", "hidden");
 
@@ -154,6 +155,7 @@ const uiManager = (function () {
         const projectNodes = document.querySelectorAll(".project");
         projectNodes.forEach(node => {
             node.addEventListener("click", () => {
+                addTaskButton.classList.remove("hidden");
                 isAnyProjectSelectedYet = true;
                 const projectID = node.dataset.projectID;
                 projectNodes.forEach(node => node.classList.remove("selected"));
