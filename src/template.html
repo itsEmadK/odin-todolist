@@ -17,7 +17,7 @@
             <div class="home">
                 <h2>Home</h2>
                 <ul>
-                    <li class="nav-item all">All Tasks</li>
+                    <li class="nav-item all selected">All Tasks</li>
                     <li class="nav-item today">Today</li>
                     <li class="nav-item next-7-days">Next 7 Days</li>
                 </ul>
@@ -41,28 +41,10 @@
 
         </ul>
         <div class="add-task-container">
-            <button class="add-task disabled">
+            <button class="add-task">
                 <img class="plus-icon" src="./images/plus-circle-outline.svg" alt="Add">
                 Add Task
             </button>
-            <div class="task-details-edit">
-                <h3>Add a new task</h3>
-                <form id="add-task-form"><label class="title-container">Title:<input type="text" required=""
-                            class="title-input"></label><label class="description-container">Description:<input
-                            type="text" class="description-input"></label><label class="due-date-container">Due
-                        date:<input type="datetime-local" class="due-date-input"></label><label
-                        class="priority-container">Priority:<select class="priority-input">
-                            <option value="0">No priority</option>
-                            <option value="1">Low</option>
-                            <option value="2">Medium</option>
-                            <option value="3">High</option>
-                            <option value="4">Urgent</option>
-                        </select></label>
-                    <div class="form-buttons-container"><button type="submit" form="task-form-01"
-                            class="save-edit">Save</button><button type="button" class="discard-edit">Discard</button>
-                    </div>
-                </form>
-            </div>
         </div>
     </div>
     <footer>The Odin Project</footer>

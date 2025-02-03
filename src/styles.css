@@ -332,3 +332,37 @@ button.add-task.hidden {
     line-height: 1.5;
     border-bottom: 2px solid black;
 }
+
+.project-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "heading heading"
+        "title title"
+        "save discard";
+    gap: 8px;
+    background-color: rgb(221, 220, 220);
+    padding: 8px;
+}
+
+h4.project-form-heading {
+    grid-area: heading;
+    line-height: 1.33;
+    border-bottom: 2px solid black;
+}
+
+input.project-title {
+    padding: 4px 6px;
+    font-family: sans-serif;
+    grid-area: title;
+    font-size: 1em;
+}
+
+button.save-project {
+    grid-area: "save";
+    background-color: rgb(128, 236, 128);
+}
+
+button.discard-project {
+    grid-area: "discard";
+}
