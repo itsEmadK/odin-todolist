@@ -24,7 +24,7 @@ body {
         "sidebar list"
         "sidebar footer";
     font-family: sans-serif;
-    overflow: hidden;
+    overflow: auto;
 }
 
 header {
