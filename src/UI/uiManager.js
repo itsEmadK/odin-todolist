@@ -157,16 +157,20 @@ const uiManager = (function () {
             noTimeFrameEl.classList.remove("selected");
         });
 
-        const projectNodes = document.querySelectorAll(".project");
-        projectNodes.forEach(node => {
-            node.addEventListener("click", () => {
-                addTaskButton.classList.remove("hidden");
-                isAnyProjectSelectedYet = true;
-                const projectID = node.dataset.projectID;
-                projectNodes.forEach(node => node.classList.remove("selected"));
-                node.classList.add("selected");
-                onProjectSelected(projectID);
-            });
+        const projectList = document.querySelector(".project-list");
+        projectList.addEventListener("click", (e) => {
+            if ([...e.target.classList].includes("project")) {
+                const node = e.target;
+                node.addEventListener("click", () => {
+                    addTaskButton.classList.remove("hidden");
+                    isAnyProjectSelectedYet = true;
+                    const projectID = node.dataset.projectID;
+                    const projectNodes = projectList.querySelectorAll(".project");
+                    projectNodes.forEach(node => node.classList.remove("selected"));
+                    node.classList.add("selected");
+                    onProjectSelected(projectID);
+                });
+            }
         });
 
         const projectsDiv = document.querySelector(".projects");
