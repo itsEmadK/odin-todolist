@@ -4,8 +4,10 @@ import { uiManager } from "./UI/uiManager.js";
 import { TIME_FRAME_VALUES } from "./UI/timeFrameValues.js";
 import { isValid } from "date-fns";
 import { localStorageManager } from "./storage/localStorage.js";
+import { Project } from "./logic/project.js";
+import { Task } from "./logic/task.js";
 
-let selectedProjectID = 0;
+let selectedProjectID = null;
 let currentTimeFrame = TIME_FRAME_VALUES.NONE;
 
 let addTaskNodeToList = (task) => {
@@ -20,7 +22,8 @@ let addTaskNodeToList = (task) => {
 }
 
 let onTaskAdded = (title, desc, priority, dueDate) => {
-    const taskID = appManager.createTaskInProject(selectedProjectID, title, desc, new Date(dueDate), +priority);
+    const taskID = appManager.generateNextTaskIDForProject(selectedProjectID);
+    appManager.createTaskInProject(selectedProjectID, taskID, title, desc, new Date(dueDate), +priority);
     updateLocalStorage();
     addTaskNodeToList(appManager.findTaskByID(selectedProjectID, taskID));
 }
@@ -70,10 +73,11 @@ let onSelectedProjectChanged = (projectID) => {
 }
 
 let onProjectAdded = (projectTitle, projectDesc) => {
-    const newProjectID = appManager.createProject(projectTitle, projectDesc);
+    const projectID = appManager.generateNextProjectID();
+    appManager.createProject(projectID, projectTitle, projectDesc);
     updateLocalStorage();
-    selectedProjectID = newProjectID;
-    uiManager.addProjectNodeToList(appManager.findProjectByID(newProjectID));
+    selectedProjectID = projectID;
+    uiManager.addProjectNodeToList(appManager.findProjectByID(projectID));
     uiManager.removeAllTaskNodes();
     const tasks = appManager.getProjectTasks(selectedProjectID, currentTimeFrame);
     tasks.forEach(task => {
@@ -93,3 +97,4 @@ uiManager.init(
     onProjectAdded
 );
 
+// loadProjectsFromLocalStorage();

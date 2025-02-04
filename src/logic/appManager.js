@@ -31,16 +31,14 @@ const appManager = (function () {
         return project.findTaskByID(taskID);
     }
 
-    function createTaskInProject(projectID, taskTitle, taskDesc, taskDueDate, taskPriority) {
-        const newTaskID = generateNextTaskIDForProject(projectID);
+    function createTaskInProject(projectID, taskID, taskTitle, taskDesc, taskDueDate, taskPriority) {
         const task = new Task(
-            newTaskID,
+            taskID,
             taskTitle,
             taskDesc,
             taskDueDate, taskPriority
         );
         addTaskToProject(projectID, task);
-        return newTaskID;
     }
 
     function editTaskInProject(projectID, taskID, taskTitle, taskDesc, taskDueDate, taskPriority) {
@@ -88,12 +86,10 @@ const appManager = (function () {
         return projectIDs[lastIndex] + 1;
     }
 
-    function createProject(projectTitle, projectDesc, tasks = []) {
-        const nextProjectID = generateNextProjectID();
-        const project = new Project(nextProjectID, projectTitle, projectDesc);
+    function createProject(projectID, projectTitle, projectDesc, tasks = []) {
+        const project = new Project(projectID, projectTitle, projectDesc);
         project.tasks = tasks.slice();
         projects.push(project);
-        return nextProjectID;
     }
 
     function removeProject(projectID) {
@@ -176,6 +172,8 @@ const appManager = (function () {
         editTaskInProject,
         getProjectTasks,
         toggleTaskFinishedState,
+        generateNextProjectID,
+        generateNextTaskIDForProject,
     };
 })();
 
