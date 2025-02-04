@@ -4,8 +4,18 @@ const localStorageManager = (function () {
         localStorage.setItem("projects", JSON.stringify(projects));
     }
 
+    function getAllProjects() {
+        const json = localStorage.getItem("projects");
+        if (json === null) {
+            return null;
+        }
+
+        return JSON.parse(json);
+    }
+
     return {
         saveProjectsToLocalStorage,
+        getAllProjects,
     }
 
 })();

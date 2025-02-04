@@ -232,6 +232,16 @@ const uiManager = (function () {
         list.innerHTML = "";
     }
 
+    function selectProjectNode(projectID) {
+        const projectNodes = document.querySelectorAll("li.project");
+        projectNodes.forEach(node => {
+            if (node.dataset.projectID == projectID) {
+                projectNodes.forEach(node => node.classList.remove("selected"));
+                node.classList.add("selected");
+            }
+        });
+    }
+
     return {
         addTaskNodeToList,
         removeTaskNodeFromList,
@@ -239,6 +249,7 @@ const uiManager = (function () {
         init,
         removeAllTaskNodes,
         addProjectNodeToList,
+        selectProjectNode,
     }
 
 })();

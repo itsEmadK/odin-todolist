@@ -58,9 +58,11 @@ let onTaskFinishedToggled = (taskID) => {
 let onTimeFrameChanged = (timeFrame) => {
     currentTimeFrame = timeFrame;
     uiManager.removeAllTaskNodes();
-    appManager.getProjectTasks(selectedProjectID, currentTimeFrame).forEach(task => {
-        addTaskNodeToList(task);
-    });
+    if (selectedProjectID !== null) {
+        appManager.getProjectTasks(selectedProjectID, currentTimeFrame).forEach(task => {
+            addTaskNodeToList(task);
+        });
+    }
 }
 
 let onSelectedProjectChanged = (projectID) => {
@@ -90,6 +92,43 @@ let updateLocalStorage = () => {
     localStorageManager.saveProjectsToLocalStorage(projects);
 }
 
+let loadProjectsFromLocalStorage = () => {
+    const projectsLocal = localStorageManager.getAllProjects();
+    if (projectsLocal !== null) {
+        projectsLocal.forEach(project => {
+            appManager.createProject(project.id, project.title, project.desc);
+            const tasks = project.tasks;
+            tasks.forEach(task => {
+                appManager.createTaskInProject(
+                    project.id,
+                    task.id,
+                    task.title,
+                    task.desc,
+                    task.dueDate,
+                    task.priority
+                );
+            });
+        });
+        selectedProjectID = projectsLocal[0].id;
+    }
+}
+
+let populateUI = () => {
+    const projects = appManager.getAllProjects();
+    projects.forEach((project, index) => {
+        uiManager.addProjectNodeToList(project);
+
+        if (index === 0) {
+            const tasks = appManager.getProjectTasks(project.id, currentTimeFrame);
+            tasks.forEach(task => {
+                addTaskNodeToList(task);
+            });
+        }
+    });
+    uiManager.selectProjectNode(0);
+
+}
+
 uiManager.init(
     onTaskAdded,
     onTimeFrameChanged,
@@ -97,4 +136,5 @@ uiManager.init(
     onProjectAdded
 );
 
-// loadProjectsFromLocalStorage();
+loadProjectsFromLocalStorage();
+populateUI();
