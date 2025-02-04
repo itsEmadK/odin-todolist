@@ -1,5 +1,5 @@
 class Project {
-    tasks = [];
+    #tasks = [];
     id;
     title;
     desc;
@@ -13,7 +13,7 @@ class Project {
     findTaskByID(taskID) {
         const taskIndex = this.#findTaskIndexByID(taskID);
         if (taskIndex > -1) {
-            return this.tasks[taskIndex].clone();
+            return this.#tasks[taskIndex].clone();
         } else {
             return null;
         }
@@ -25,7 +25,7 @@ class Project {
 
 
     addTask(task) {
-        this.tasks.push(task.clone());
+        this.#tasks.push(task.clone());
     }
 
     getTask(taskID) {
@@ -33,12 +33,12 @@ class Project {
     }
 
     getAllTasks() {
-        return this.tasks.slice().map((task => task.clone()));
+        return this.#tasks.slice().map((task => task.clone()));
     }
 
     #findTaskIndexByID(taskID) {
-        for (let i = 0; i < this.tasks.length; i++) {
-            const task = this.tasks[i];
+        for (let i = 0; i < this.#tasks.length; i++) {
+            const task = this.#tasks[i];
             if (task.id === taskID) {
                 return i;
             }
@@ -49,7 +49,7 @@ class Project {
     editTask(task) {
         const taskIndex = this.#findTaskIndexByID(task.id);
         if (taskIndex > -1) {
-            this.tasks[taskIndex] = task.clone();
+            this.#tasks[taskIndex] = task.clone();
             return true;
         } else {
             return false;
@@ -59,7 +59,7 @@ class Project {
     removeTask(taskID) {
         const taskIndex = this.#findTaskIndexByID(taskID);
         if (taskIndex > -1) {
-            this.tasks.splice(taskIndex, 1);
+            this.#tasks.splice(taskIndex, 1);
             return true;
         } else {
             return false;
@@ -73,7 +73,7 @@ class Project {
             this.desc
         );
 
-        clone.tasks = this.tasks.slice().map((task => task.clone()));
+        clone.#tasks = this.#tasks.slice().map((task => task.clone()));
         return clone;
     }
 }
