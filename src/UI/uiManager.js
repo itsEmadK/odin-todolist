@@ -5,7 +5,6 @@ import { isValid, format } from "date-fns";
 import { createProjectFormComponent } from "./projectFormComponent.js";
 
 const uiManager = (function () {
-    let isAnyProjectSelectedYet = false;
     const taskListEl = document.querySelector(".task-list");
     function addTaskNodeToList(task, onTaskEdit, onTaskRemoved, onTaskFinishedToggled) {
         const taskItem = createTaskItemComponent(
@@ -162,7 +161,6 @@ const uiManager = (function () {
             if ([...e.target.classList].includes("project")) {
                 const node = e.target;
                 addTaskButton.classList.remove("hidden");
-                isAnyProjectSelectedYet = true;
                 const projectID = node.dataset.projectID;
                 const projectNodes = projectList.querySelectorAll(".project");
                 projectNodes.forEach(node => node.classList.remove("selected"));
