@@ -391,7 +391,7 @@ button.add-project.hidden {
     background-color: var(--task-item-summary-bg-color-finished);
 }
 
-.task-summary:has(input.task-finished:checked) {
+.task-summary:has(input.task-finished:checked) p {
     opacity: var(--finished-task-opacity);
     text-decoration: line-through;
 }
