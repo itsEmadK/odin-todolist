@@ -17,8 +17,8 @@ const uiManager = (function () {
         taskListEl.appendChild(taskItem);
     }
 
-    function removeTaskNodeFromList(task) {
-        const node = findTaskNodeByID(task.id);
+    function removeTaskNodeFromList(taskID) {
+        const node = findTaskNodeByID(taskID);
         if (node !== null) {
             node.parentElement.removeChild(node);
         }
@@ -82,7 +82,7 @@ const uiManager = (function () {
 
         for (let i = 0; i < taskListItems.length; i++) {
             const taskLI = taskListItems[i];
-            if (taskLI.dataset.taskID === taskID) {
+            if (taskLI.dataset.taskID == taskID) {
                 return taskLI;
             }
         }
