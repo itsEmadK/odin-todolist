@@ -105,7 +105,8 @@ let loadProjectsFromLocalStorage = () => {
                     task.title,
                     task.desc,
                     task.dueDate,
-                    task.priority
+                    task.priority,
+                    task.finished
                 );
             });
         });

@@ -31,13 +31,14 @@ const appManager = (function () {
         return project.findTaskByID(taskID);
     }
 
-    function createTaskInProject(projectID, taskID, taskTitle, taskDesc, taskDueDate, taskPriority) {
+    function createTaskInProject(projectID, taskID, taskTitle, taskDesc, taskDueDate, taskPriority, finished = false) {
         const task = new Task(
             taskID,
             taskTitle,
             taskDesc,
             taskDueDate, taskPriority
         );
+        task.finished = finished;
         addTaskToProject(projectID, task);
     }
 
