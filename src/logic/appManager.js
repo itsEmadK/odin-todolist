@@ -66,11 +66,26 @@ const appManager = (function () {
 
     function generateNextTaskIDForProject(projectID) {
         const projectIndex = findProjectIndexByID(projectID);
-        return `${projectID}` + projects[projectIndex].tasks.length;
+        const tasks = projects[projectIndex].tasks;
+        const taskIDs = tasks.map(task => task.id);
+        if (taskIDs.length === 0) {
+            return `${projectID}0`;
+        }
+        taskIDs.sort();
+        const lastIndex = taskIDs.length - 1;
+        const lastID = taskIDs[lastIndex];
+        return `${projectID}${+lastID + 1}`;
     }
 
     function generateNextProjectID() {
-        return projects.length;
+        const projectIDs = projects.map((project) => project.id);
+        if (projectIDs.length === 0) {
+            return 0;
+        }
+
+        projectIDs.sort();
+        const lastIndex = projects.length - 1
+        return projectIDs[lastIndex] + 1;
     }
 
     function createProject(projectTitle, projectDesc, tasks = []) {
