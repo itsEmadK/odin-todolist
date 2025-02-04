@@ -3,6 +3,7 @@ import { appManager } from "./logic/appManager.js";
 import { uiManager } from "./UI/uiManager.js";
 import { TIME_FRAME_VALUES } from "./UI/timeFrameValues.js";
 import { isValid } from "date-fns";
+import { localStorageManager } from "./storage/localStorage.js";
 
 let selectedProjectID = 0;
 let currentTimeFrame = TIME_FRAME_VALUES.NONE;
@@ -20,8 +21,7 @@ let addTaskNodeToList = (task) => {
 
 let onTaskAdded = (title, desc, priority, dueDate) => {
     const taskID = appManager.createTaskInProject(selectedProjectID, title, desc, new Date(dueDate), +priority);
-    console.log(taskID);
-
+    updateLocalStorage();
     addTaskNodeToList(appManager.findTaskByID(selectedProjectID, taskID));
 }
 
@@ -35,16 +35,19 @@ let onTaskEdited = (taskID, newTitle, newDesc, newPriority, newDueDate) => {
         +newPriority
     );
     const editedTask = appManager.findTaskByID(selectedProjectID, taskID)
+    updateLocalStorage();
     uiManager.updateTaskNodeInTheList(editedTask);
 };
 
 let onTaskRemoved = (taskID) => {
     appManager.removeTaskFromProject(selectedProjectID, taskID);
+    updateLocalStorage();
     uiManager.removeTaskNodeFromList(taskID);
 }
 
 let onTaskFinishedToggled = (taskID) => {
     appManager.toggleTaskFinishedState(selectedProjectID, taskID);
+    updateLocalStorage();
     const editedTask = appManager.findTaskByID(selectedProjectID, taskID);
     uiManager.updateTaskNodeInTheList(editedTask);
 }
@@ -68,6 +71,7 @@ let onSelectedProjectChanged = (projectID) => {
 
 let onProjectAdded = (projectTitle, projectDesc) => {
     const newProjectID = appManager.createProject(projectTitle, projectDesc);
+    updateLocalStorage();
     selectedProjectID = newProjectID;
     uiManager.addProjectNodeToList(appManager.findProjectByID(newProjectID));
     uiManager.removeAllTaskNodes();
@@ -77,7 +81,10 @@ let onProjectAdded = (projectTitle, projectDesc) => {
     })
 }
 
-
+let updateLocalStorage = () => {
+    const projects = appManager.getAllProjects();
+    localStorageManager.saveProjectsToLocalStorage(projects);
+}
 
 uiManager.init(
     onTaskAdded,
